@@ -20,34 +20,17 @@ app.use(logger("dev")); // logging middleware
 //handle errors
 const createError = require("http-errors");
 
-// // test the connection
-// pool.getConnection((err, connection) => {
-//   if (err) {
-//     console.error("❌❌❌ Fail to connect database:", err);
-//   } else {
-//     console.log("✅✅✅ Database connection successful！");
-//     connection.release(); // release the pool
-//   }
-// });
-// test a query
-// app.get("/users", (req, res) => {
-//   pool.query("SELECT username FROM users", (err, results) => {
-//     if (err) {
-//       return res.status(500).json({ error: err.message });
-//     }
-//     res.json(results.map((user) => user.username));
-//   });
-// });
-
 // ******* Routing *******
 // Import routes
 const homeRoutes = require("./app/routes/homeRoutes");
 const aboutRoutes = require("./app/routes/aboutRoutes");
 const userRoutes = require("./app/routes/userRoutes");
+const bookRoutes = require("./app/routes/booksRoutes");
 // Mount routes
 app.use("/home", homeRoutes); // Mounts the router under "/home"
 app.use("/about", aboutRoutes);
 app.use("/user", userRoutes);
+app.use("/books", bookRoutes);
 //404
 app.use((req, res, next) => {
   next(createError(404, "Page Not Found"));

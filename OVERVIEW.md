@@ -5,9 +5,7 @@
 Core business logic folder, containing the following subdirectories:
 
 - `controllers/`: Handles the specific logic for processing requests.
-- `models/`: Defines data structures (e.g., Mongoose models for MongoDB).
 - `routes/`: Defines routes and their corresponding controllers.
-- `services/`: Encapsulates complex logic (e.g., API calls, database operations).
 
 ## 2. `public/`
 
@@ -25,9 +23,7 @@ public/
 
 ## 3. `views/`
 
-Stores template files for dynamically generating HTML pages (e.g., EJS, Pug).
-
-Example structure:
+Stores template files for dynamically generating HTML pages ( EJS).
 
 ```
 views/
@@ -42,11 +38,9 @@ views/
 
 Manages environment-related configuration information (e.g., database connections, API keys).
 
-Example files:
-
 ```
 config/
-├── database.js
+├── dbConfig.js
 └── appConfig.js
 ```
 
@@ -58,22 +52,19 @@ Custom middleware logic, such as authentication, error handling, and request log
 
 Contains test code, using tools like Mocha, Chai, or Jest.
 
-Example structure:
-
 ```
 tests/
 ├── controllers/
-├── routes/
-└── services/
+└── routes/
 ```
 
 ## 7. `utils/`
 
 General-purpose utility functions, such as date formatting, logging tools, and encryption utilities.
 
-## 8. `server.js`
+## 8. `app.js`
 
-The entry point of the project, typically includes:
+The entry point of the project, includes:
 
 - Initialization of the Express application.
 - Middleware setup.
