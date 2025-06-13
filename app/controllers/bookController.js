@@ -56,7 +56,7 @@ const bookController = {
       return this.getBookById({ params: { id: req.query.id } }, res);
     }
 
-    let SQL = "SELECT * FROM Books";
+    let SQL = "SELECT * FROM Books WHERE isDeleted = 0";
     dbPool.connection(SQL, [], (err, results) => {
       if (err) {
         console.error("Query failed:", err);
@@ -122,15 +122,17 @@ const bookController = {
     // Logic to update a book by ID
     const SQL =
       "UPDATE Books SET title=?, author=?, year=?, genre=?, imageUrl=?, review=?, rating=?, status=?   WHERE id = ?";
+
+    const { title, author, year, genre, imageUrl, review, rating, status } =
+      req.body;
+    const id = req.params.id;
+
     if (!id || !title || !author || !year) {
       return res.status(400).json({
         state: "0", // Custom status code 0: failure
         msg: "Invalid input: 'id', 'title', 'author', 'year', and 'genre' are required.",
       });
     }
-    const { title, author, year, genre, imageUrl, review, rating, status } =
-      req.body;
-    const id = req.params.id;
     const parameters = [
       title,
       author,
@@ -164,20 +166,28 @@ const bookController = {
     console.log("req.params", req.params);
     console.log("====================================");
     // Logic to delete a book by ID
-    const SQL = "DELETE FROM Books where id=?"; //DELETE does not need *
+    //const SQL = "DELETE FROM Books where id=?"; //DELETE does not need *
+    const SQL =
+      "UPDATE Books SET isDeleted = TRUE, deletedAt = NOW() WHERE id = ?";
     const id = req.params.id;
     dbPool.connection(SQL, [id], (err, results) => {
       if (err) {
-        console.error("Delete by id failed:", err);
+        console.error("Soft delete by id failed:", err);
         return res.status(500).json({
           state: "0", // Custom status code 0: failure
-          msg: "Delete by id failed",
+          msg: "Database error: Soft delete by id failed.",
           error: err.message,
         });
       }
-      res.json({
+      if (results.affectedRows === 0) {
+        return res.status(404).json({
+          state: "0", // Custom status code 0: failure
+          msg: `No book found with id: ${id}`,
+        });
+      }
+      res.status(200).json({
         state: "1", // Custom status code 1: success
-        msg: "Delete by id successful",
+        msg: "Book soft deleted successfully.",
         data: results,
       });
     });

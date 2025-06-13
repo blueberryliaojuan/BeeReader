@@ -19,3 +19,6 @@
   'A thought-provoking book on totalitarianism.', 4, 2),
   ('3', 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', '/images/mockingbird.jpg', 1960,
   'An insightful story about justice and morality.', NULL, 1);
+- Soft delete
+  ALTER TABLE Books ADD COLUMN isDeleted BOOLEAN DEFAULT FALSE;
+  ALTER TABLE Books ADD COLUMN deletedAt DATETIME DEFAULT NULL;
