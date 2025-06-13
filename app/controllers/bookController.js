@@ -6,9 +6,9 @@ const bookController = {
     console.log("userController-createBook");
     console.log("req.body", req.body);
     console.log("====================================");
-    let SQL =
+    const SQL =
       "INSERT INTO Books (id,title, author, year, genre, imageUrl, review, rating, status) VALUES (?,?,?,?,?,?,?,?,?)";
-    let { id, title, author, year, genre, imageUrl, review, rating, status } =
+    const { id, title, author, year, genre, imageUrl, review, rating, status } =
       req.body;
     //id, title,author,year should not be null
     // Ensure mandatory fields are not null
@@ -18,7 +18,7 @@ const bookController = {
         msg: "Missing required fields",
       });
     }
-    const arr = [
+    const parameters = [
       id,
       title,
       author,
@@ -29,7 +29,7 @@ const bookController = {
       rating,
       status,
     ];
-    dbPool.connection(SQL, arr, (err, results) => {
+    dbPool.connection(SQL, parameters, (err, results) => {
       if (err) {
         console.error("Create book failed:", err);
         return res.status(500).json({
@@ -89,9 +89,9 @@ const bookController = {
     console.log("req.params", req.params);
     console.log("====================================");
     // Logic to fetch a single book by ID
-    let sql = "SELECT * FROM Books WHERE id = ?";
-    let arr = [req.params.id];
-    dbPool.connection(sql, arr, (err, results) => {
+    let SQL = "SELECT * FROM Books WHERE id = ?";
+    let parameters = [req.params.id];
+    dbPool.connection(SQL, parameters, (err, results) => {
       if (err) {
         console.error("Query by id failed:", err);
         return res.status(500).json({
@@ -120,6 +120,43 @@ const bookController = {
     console.log("req.body", req.body);
     console.log("====================================");
     // Logic to update a book by ID
+    const SQL =
+      "UPDATE Books SET title=?, author=?, year=?, genre=?, imageUrl=?, review=?, rating=?, status=?   WHERE id = ?";
+    if (!id || !title || !author || !year) {
+      return res.status(400).json({
+        state: "0", // Custom status code 0: failure
+        msg: "Invalid input: 'id', 'title', 'author', 'year', and 'genre' are required.",
+      });
+    }
+    const { title, author, year, genre, imageUrl, review, rating, status } =
+      req.body;
+    const id = req.params.id;
+    const parameters = [
+      title,
+      author,
+      year,
+      genre,
+      imageUrl,
+      review,
+      rating,
+      status,
+      id,
+    ];
+    dbPool.connection(SQL, parameters, (err, results) => {
+      if (err) {
+        console.error("Update by id failed:", err);
+        return res.status(500).json({
+          state: "0", // Custom status code 0: failure
+          msg: "Update by id failed",
+          error: err.message,
+        });
+      }
+      res.json({
+        state: "1", // Custom status code 1: success
+        msg: "Update by id successful",
+        data: results, // 'results' contains the query results as a JavaScript object/array
+      });
+    });
   },
   deleteBook(req, res) {
     console.log("====================================");
@@ -127,6 +164,23 @@ const bookController = {
     console.log("req.params", req.params);
     console.log("====================================");
     // Logic to delete a book by ID
+    const SQL = "DELETE FROM Books where id=?"; //DELETE does not need *
+    const id = req.params.id;
+    dbPool.connection(SQL, [id], (err, results) => {
+      if (err) {
+        console.error("Delete by id failed:", err);
+        return res.status(500).json({
+          state: "0", // Custom status code 0: failure
+          msg: "Delete by id failed",
+          error: err.message,
+        });
+      }
+      res.json({
+        state: "1", // Custom status code 1: success
+        msg: "Delete by id successful",
+        data: results,
+      });
+    });
   },
 };
 
