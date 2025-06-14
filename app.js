@@ -1,11 +1,16 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const PORT = 3000;
+
+//view engin setup
+app.set("view", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 // ******* Express Middlewares *******
 app.use(express.json()); // parse JSON data
 app.use(express.urlencoded({ extended: true })); // parse URL-encoded data
-app.use(express.static("public")); // serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, "public"))); // serve static files from the 'public' directory
 
 // ******* Third Party Middlewares ******
 // Enable CORS for all routes
@@ -38,9 +43,9 @@ app.use((req, res, next) => {
 //error handling
 app.use((err, req, res, next) => {
   console.log("🙅", err);
-  // 设置状态码
+  // set status code
   res.status(err.status || 500);
-  // 返回错误信息
+  // send back error info
   res.json({
     error: {
       message: err.message,

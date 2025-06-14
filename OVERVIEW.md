@@ -6,6 +6,7 @@ Core business logic folder, containing the following subdirectories:
 
 - `controllers/`: Handles the specific logic for processing requests.
 - `routes/`: Defines routes and their corresponding controllers.
+- `services/`: Implements the core business logic and reusable functionalities. It encapsulates complex operations and workflows, isolating them from controllers.
 
 ## 2. `public/`
 
