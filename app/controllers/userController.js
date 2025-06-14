@@ -1,5 +1,3 @@
-const dbPool = require("../../config/dbConfig.js");
-
 const userController = {
   verifyLoginCredentials(req, res) {
     console.log("====================================");

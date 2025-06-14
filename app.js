@@ -26,33 +26,40 @@ app.use(logger("dev")); // logging middleware
 const createError = require("http-errors");
 
 // ******* Routing *******
-// Import routes
-const homeRoutes = require("./app/routes/homeRoutes");
-const aboutRoutes = require("./app/routes/aboutRoutes");
-const userRoutes = require("./app/routes/userRoutes");
-const bookRoutes = require("./app/routes/booksRoutes");
-// Mount routes
+// Import page routes
+const homeRoutes = require("./app/routes/pages/homeRoutes");
+const aboutRoutes = require("./app/routes/pages/aboutRoutes");
+// Import API routes
+const userApiRoutes = require("./app/routes/api/userApiRoutes");
+const bookApiRoutes = require("./app/routes/api/booksApiRoutes");
+// Mount page routes under "/"
 app.use("/home", homeRoutes); // Mounts the router under "/home"
 app.use("/about", aboutRoutes);
-app.use("/user", userRoutes);
-app.use("/books", bookRoutes);
+// Mount API routes under "/api/"
+app.use("/api/users", userApiRoutes);
+app.use("/api/books", bookApiRoutes);
 //404
 app.use((req, res, next) => {
-  next(createError(404, "Page Not Found"));
+  if (req.path.startsWith("/api/")) {
+    // For API routes, return a JSON response
+    return res.status(404).json({ error: "API not found 🙅" });
+  }
+  // For page routes, render a 404 page
+  res.status(404).render("404", { title: "Page Not Found 🙅" });
 });
 //error handling
-app.use((err, req, res, next) => {
-  console.log("🙅", err);
-  // set status code
-  res.status(err.status || 500);
-  // send back error info
-  res.json({
-    error: {
-      message: err.message,
-      status: err.status,
-    },
-  });
-});
+// app.use((err, req, res, next) => {
+//   console.log("🙅", err);
+//   // set status code
+//   res.status(err.status || 500);
+//   // send back error info
+//   res.json({
+//     error: {
+//       message: err.message,
+//       status: err.status,
+//     },
+//   });
+// });
 
 // Start the server
 function printBeeReader() {
