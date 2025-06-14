@@ -4,8 +4,10 @@ const app = express();
 const PORT = 3000;
 
 //view engin setup
-app.set("view", path.join(__dirname, "views"));
+// Set the view engine to ejs
 app.set("view engine", "ejs");
+// Set the views directory
+app.set("views", path.join(__dirname, "views"));
 
 // ******* Express Middlewares *******
 app.use(express.json()); // parse JSON data
@@ -47,19 +49,6 @@ app.use((req, res, next) => {
   // For page routes, render a 404 page
   res.status(404).render("404", { title: "Page Not Found 🙅" });
 });
-//error handling
-// app.use((err, req, res, next) => {
-//   console.log("🙅", err);
-//   // set status code
-//   res.status(err.status || 500);
-//   // send back error info
-//   res.json({
-//     error: {
-//       message: err.message,
-//       status: err.status,
-//     },
-//   });
-// });
 
 // Start the server
 function printBeeReader() {
