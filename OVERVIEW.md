@@ -12,14 +12,11 @@ Core business logic folder, containing the following subdirectories:
 
 Stores static files, served using the `express.static` middleware.
 
-Example structure:
-
 ```
 public/
 ├── css/
 ├── js/
-├── images/
-└── index.html
+└── images/
 ```
 
 ## 3. `views/`

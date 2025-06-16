@@ -1,31 +1,32 @@
 const dbPool = require("../../config/dbConfig.js");
+const { v4: uuidv4 } = require("uuid");
 
 const bookService = {
   createBook(data) {
     //id, title,author,year should not be null
     // Ensure mandatory fields are not null
     const SQL =
-      "INSERT INTO Books (id, title, author, year, genre, imageUrl, review, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const { id, title, author, year, genre, imageUrl, review, rating, status } =
+      "INSERT INTO Books (id, title, author, year, genre, imageUrl,  review, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const id = uuidv4();
+    const { title, author, year, genre, imageUrl, review, rating, status } =
       data;
+
     const parameters = [
       id,
       title,
       author,
-      year,
-      genre,
-      imageUrl,
-      review,
-      rating,
-      status,
+      parseInt(year, 10),
+      genre || null,
+      imageUrl || null,
+      review || null,
+      rating || null,
+      status || 1,
     ];
+    console.log("parameters", parameters);
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, parameters, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
+        if (err) return reject(err);
+        resolve({ id, ...data });
       });
     });
   },
@@ -44,14 +45,13 @@ const bookService = {
   },
 
   getBookById(id) {
-    const SQL = "SELECT * FROM Books WHERE id = ?";
+    const SQL = "SELECT * FROM Books WHERE id = ? AND isDeleted = 0";
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, [id], (err, results) => {
         if (err) {
           reject(err);
-        } else {
-          resolve(results);
         }
+        resolve(results.length ? results[0] : null);
       });
     });
   },
@@ -91,11 +91,8 @@ const bookService = {
       "UPDATE Books SET isDeleted = TRUE, deletedAt = NOW() WHERE id = ?";
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, [id], (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(results);
-        }
+        if (err) return reject(err);
+        resolve(results);
       });
     });
   },

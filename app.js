@@ -31,11 +31,13 @@ const createError = require("http-errors");
 // Import page routes
 const homeRoutes = require("./app/routes/pages/homeRoutes");
 const aboutRoutes = require("./app/routes/pages/aboutRoutes");
+const addNewBookRoutes = require("./app/routes/pages/addNewBookRoutesRoutes");
 // Import API routes
 const userApiRoutes = require("./app/routes/api/userApiRoutes");
 const bookApiRoutes = require("./app/routes/api/booksApiRoutes");
 // Mount page routes under "/"
 app.use("/home", homeRoutes); // Mounts the router under "/home"
+app.use("/addNewBook", addNewBookRoutes);
 app.use("/about", aboutRoutes);
 // Mount API routes under "/api/"
 app.use("/api/users", userApiRoutes);

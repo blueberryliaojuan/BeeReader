@@ -5,15 +5,16 @@ const bookController = {
     console.log("====================================");
     console.log("userController-createBook");
     console.log("req.body", req.body);
+    console.log("req.file:", req.file);
     console.log("====================================");
     try {
-      const data = req.body;
-      if (!data.id || !data.title || !data.author || !data.year) {
-        return res.status(400).json({
-          state: "0",
-          msg: "Missing required fields",
-        });
-      }
+      // multer.single("cover") saved file in public/images，and created req.file.filename
+      const imageUrl = req.file ? `/images/${req.file.filename}` : null;
+
+      const data = {
+        ...req.body,
+        imageUrl,
+      };
       const results = await bookService.createBook(data);
       res.status(201).json({
         state: "1",

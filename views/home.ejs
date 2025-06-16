@@ -3,11 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css" />
     <title><%= title %></title>
   </head>
   <body>
-    <h1>Welcome to the <%= title %></h1>
-    <p><%= data %></p>
+    <header>
+      <h1>BeeReader</h1> 
+      <img src="/images/logo.png" alt="">
+    </header>
+    <p class="greeting">Dear reader, this is your bookshelf</>
+    <ul id="book-list">
+      <% data.forEach(function(book) { %>
+        <li data-id="<%= book.id %>">
+          <h3><%= book.title %></h3>
+          <p class="author"><%= book.author %></p>
+          <% if (book.imageUrl) { %>
+            <img src="<%= book.imageUrl %>" alt="<%= book.title %>">
+          <% } else { %>
+            <p>No image available</p>
+          <% } %>
+          <button class="delete-btn">Delete</button>
+        </li>
+      <% }); %>
+    </ul>
+  
+    <button id="new-btn">Add in a New Book</button>
   </body>
-  <script></script>
+  <script>
+       // Delete 
+    document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const li = this.parentElement;
+        const bookId = li.getAttribute('data-id');
+
+        fetch(`/api/books/${bookId}`, {
+          method: 'DELETE',
+        })
+        .then(res => {
+          if (res.ok) {
+            li.remove(); // remove the deleted li from page
+          } else {
+            alert('Delete failed');
+          }
+        })
+        .catch(err => {
+          console.error('Delete error:', err);
+          alert('Delete error');
+        });
+      });
+    });
+
+    // New 按钮点击事件
+    document.getElementById('new-btn').addEventListener('click', () => {
+   
+      window.location.href = `/addNewBook`;
+  
+      
+     
+    });
+  </script>
+  </script>
 </html>
