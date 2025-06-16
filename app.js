@@ -3,6 +3,8 @@ const path = require("path");
 const app = express();
 const PORT = 3000;
 
+const session = require("express-session");
+
 //view engin setup
 // Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -26,6 +28,15 @@ const logger = require("morgan");
 app.use(logger("dev")); // logging middleware
 //handle errors
 const createError = require("http-errors");
+
+app.use(
+  session({
+    secret: "my-secret-key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000, httpOnly: true },
+  })
+);
 
 // ******* Routing *******
 // Import page routes
