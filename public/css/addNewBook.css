@@ -6,10 +6,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: #f7d755; */
 }
 header {
-  /* height: 68px; */
   width: 100vw;
   background-image: url(/images/beeHive.svg);
   background-repeat: no-repeat;
@@ -20,11 +18,11 @@ header {
   justify-content: center;
   align-items: center;
 }
-header h1 {
+header .site-name {
   font-family: "Pacifico", cursive;
   font-size: 2.5rem;
   line-height: 2.5rem;
-  padding: 20px 0;
+  padding: 52px 0;
   color: #f7d755;
   text-align: center;
 }
@@ -32,4 +30,75 @@ header img {
   height: 45px;
   width: auto;
   margin-left: 10px;
+}
+
+/* Page title */
+h1 {
+  color: #333333;
+  margin: 20px 0;
+}
+
+/* Form container */
+#book-form {
+  width: 90%;
+  max-width: 500px;
+  display: grid;
+  gap: 15px;
+  background: #f9f9f9;
+  padding: 20px;
+  border: 2px solid #333333;
+  border-radius: 8px;
+}
+
+/* Label styling */
+#book-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Input, textarea */
+#book-form input[type="text"],
+#book-form input[type="number"],
+#book-form input[type="file"],
+#book-form textarea {
+  width: 95%;
+  padding: 8px;
+  border: 2px solid #333333;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Textarea specific */
+#book-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Submit button */
+#book-form button[type="submit"] {
+  background: #f7d755;
+  color: #333333;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#book-form button[type="submit"]:hover {
+  background: #333333;
+  color: #f7d755;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  #book-form {
+    padding: 15px;
+    gap: 10px;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
 }
