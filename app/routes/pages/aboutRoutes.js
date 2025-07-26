@@ -1,9 +1,9 @@
 const express = require("express");
-const router = express.Router();
+const aboutRouter = express.Router();
 
 // About Page
-router.get("/", (req, res) => {
+aboutRouter.get("/", (req, res) => {
   res.render("about", { title: "About Page" });
 });
 
-module.exports = router;
+module.exports = aboutRouter;

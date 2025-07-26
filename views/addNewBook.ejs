@@ -64,6 +64,7 @@
         .addEventListener("submit", async function (event) {
           event.preventDefault();
           const form = event.target;
+          console.log("form", form);
           const formData = new FormData(form);
 
           try {

@@ -24,6 +24,7 @@ The website is mobile-friendly and adapts to various screen sizes.
 
 - The application uses a MySQL database.
 - A connection pool efficiently handles incoming requests, ensuring scalability.
+- database: "BeeReader", user: "beeuser", password: "beeuser",
 
 ### 5. EJS Templating Engine
 
@@ -44,6 +45,12 @@ The website is mobile-friendly and adapts to various screen sizes.
 
 - Multer handles file uploads, with files stored in the `public/images` directory.
 - This functionality is optional.
+
+### 9. Passward security
+
+-- Frontend - Submit the raw (plaintext) password directly to the server over HTTP
+-- Backend - Use bcrypt.hash(password) to securely hash the password before storing it in the database during signup
+-- Backend - Use bcrypt.compare(password, hashedPassword) to verify the submitted password against the stored hash during login.
 
 ---
 
@@ -81,15 +88,17 @@ The complete source code for BeeReader is available on GitHub:
 
 ## Running the Application
 
+First of all, we need to make sure the database is working!!!
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/blueberryliaojuan/BeeReader.git
    cd BeeReader
    ```
 2. Install dependencies:
-   npm install
-3. Start the server:
-   npm run dev
+   npm i
+3. Start the server(make sure the database is on):
+   npm run dev (script for "nodemon app.js")
 4. Open your browser and navigate to: http://localhost:3000/home
 
 ## Technical Highlights

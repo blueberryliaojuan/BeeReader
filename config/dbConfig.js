@@ -19,7 +19,7 @@ const dbPool = {
     user: "beeuser",
     password: "beeuser",
     database: "BeeReader",
-    port: 8889, // MAMP default for MySQL
+    port: 8889, // default is 3306. while MAMP need port 8889 for MySQL
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,

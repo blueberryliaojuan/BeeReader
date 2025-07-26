@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title || 'Login / Signup Page' %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <header>
+      <div class="site-name">BeeReader</div>
+      <img src="/images/logo.png" alt="" />
+    </header>
+    <div class="container right-panel-active">
+      <!-- Sign In -->
+      <div class="container__form container--signin">
+        <form class="form" id="form2">
+          <h2 class="form__title">Sign In</h2>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            class="input"
+            required
+            id="signInEmail"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="input"
+            required
+            id="signInPassword"
+          />
+          <a href="#" class="link">Forgot your password?</a>
+          <button class="btn">Sign In</button>
+        </form>
+      </div>
+      <!-- Sign Up -->
+      <div class="container__form container--signup">
+        <form class="form" id="form1">
+          <h2 class="form__title">Sign Up</h2>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            class="input"
+            required
+            id="email"
+          />
+          <p id="email-error" class="error-message"></p>
+          <input
+            type="text"
+            name="username"
+            placeholder="User"
+            class="input"
+            required
+            id="username"
+          />
+          <p id="username-error" class="error-message"></p>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="input"
+            required
+            id="password"
+          />
+          <p id="password-error" class="error-message" style="height: 1em"></p>
+          <button class="btn">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Overlay -->
+      <div class="container__overlay">
+        <div class="overlay">
+          <div class="overlay__panel overlay--left">
+            <button class="btn" id="signIn" type="submit">Sign In</button>
+          </div>
+          <div class="overlay__panel overlay--right">
+            <button class="btn" id="signUp" type="submit">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/login.js"></script>
+  </body>
+</html>

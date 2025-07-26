@@ -5,7 +5,7 @@ module.exports = (sessionExpiryTime = 5 * 60 * 1000) => {
     }
 
     const now = Date.now();
-    const sessionStartTime = req.session.startTime || now; // 初始化 startTime
+    const sessionStartTime = req.session.startTime || now; // init startTime
     req.session.startTime = sessionStartTime;
 
     if (now - sessionStartTime > sessionExpiryTime) {
@@ -18,7 +18,7 @@ module.exports = (sessionExpiryTime = 5 * 60 * 1000) => {
           .json({ error: "Session expired. Please log in again." });
       });
     } else {
-      next(); // 会话有效，继续
+      next(); // seesion is still valid, continue to next middleware or route handler
     }
   };
 };

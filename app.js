@@ -39,29 +39,8 @@ app.use(
 );
 
 // ******* Routing *******
-// Import page routes
-const homeRoutes = require("./app/routes/pages/homeRoutes");
-const aboutRoutes = require("./app/routes/pages/aboutRoutes");
-const addNewBookRoutes = require("./app/routes/pages/addNewBookRoutesRoutes");
-// Import API routes
-const userApiRoutes = require("./app/routes/api/userApiRoutes");
-const bookApiRoutes = require("./app/routes/api/booksApiRoutes");
-// Mount page routes under "/"
-app.use("/home", homeRoutes); // Mounts the router under "/home"
-app.use("/addNewBook", addNewBookRoutes);
-app.use("/about", aboutRoutes);
-// Mount API routes under "/api/"
-app.use("/api/users", userApiRoutes);
-app.use("/api/books", bookApiRoutes);
-//404
-app.use((req, res, next) => {
-  if (req.path.startsWith("/api/")) {
-    // For API routes, return a JSON response
-    return res.status(404).json({ error: "API not found 🙅" });
-  }
-  // For page routes, render a 404 page
-  res.status(404).render("404", { title: "Page Not Found 🙅" });
-});
+// Import and set up routes
+require("./app/routes")(app);
 
 // Start the server
 function printBeeReader() {

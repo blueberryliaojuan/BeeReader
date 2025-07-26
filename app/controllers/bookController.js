@@ -3,7 +3,7 @@ const bookController = {
   //postman:body-urlencoded
   async createBook(req, res) {
     console.log("====================================");
-    console.log("userController-createBook");
+    console.log("bookController-createBook");
     console.log("req.body", req.body);
     console.log("req.file:", req.file);
     console.log("====================================");

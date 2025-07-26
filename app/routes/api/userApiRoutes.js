@@ -1,9 +1,23 @@
 const express = require("express");
-const router = express.Router();
+const userRouter = express.Router();
 const userController = require("../../controllers/userController");
 
-// About Page Route
-router.get("/", (req, res) => res.send("Welcome to User Page!"));
-router.post("/", (req, res) => res.send("Meet the Team"));
+const multer = require("multer");
+const upload = multer(); // Use multer for handling multipart/form-data, but not storing files
+//when not storing files, use .none() to avoid file handling
 
-module.exports = router;
+// login
+userRouter.post(
+  "/signin",
+  upload.none(),
+  userController.verifyLoginCredentials
+);
+
+// register
+userRouter.post("/signup", upload.none(), userController.createUser);
+userRouter.post(
+  "/checkEmailAvailability",
+  userController.checkEmailAvailability
+);
+
+module.exports = userRouter;

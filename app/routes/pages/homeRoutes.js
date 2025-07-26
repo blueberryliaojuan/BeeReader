@@ -1,8 +1,8 @@
 const express = require("express");
-const router = express.Router();
+const homeRouter = express.Router();
 
 //Home Page
-router.get("/", (req, res) => {
+homeRouter.get("/", (req, res) => {
   fetch("http://localhost:3000/api/books") //
     .then((response) => {
       // check response status
@@ -25,4 +25,4 @@ router.get("/", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = homeRouter;
