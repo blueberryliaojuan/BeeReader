@@ -3,60 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/addNewBook.css" />
     <title><%= title %></title>
   </head>
   <body>
-    <header>
+    <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="Logo" />
+      <img src="/images/logo.png" alt="" />
     </header>
+    <main class="main-content">
+      <h1>Add New Book</h1>
 
-    <h1>Add New Book</h1>
+      <form
+        id="book-form"
+        action="/api/books"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" name="title" id="title" required />
+        </div>
 
-    <form
-      id="book-form"
-      action="/api/books"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required />
-      </div>
+        <div>
+          <label for="author">Author:</label>
+          <input type="text" name="author" id="author" required />
+        </div>
 
-      <div>
-        <label for="author">Author:</label>
-        <input type="text" name="author" id="author" required />
-      </div>
+        <div>
+          <label for="year">Year:</label>
+          <input type="text" name="year" id="year" required />
+        </div>
 
-      <div>
-        <label for="year">Year:</label>
-        <input type="text" name="year" id="year" required />
-      </div>
+        <div>
+          <label for="cover">Cover Image:</label>
+          <input
+            type="file"
+            name="cover"
+            id="cover"
+            accept="image/*"
+            required
+          />
+        </div>
 
-      <div>
-        <label for="cover">Cover Image:</label>
-        <input type="file" name="cover" id="cover" accept="image/*" required />
-      </div>
+        <div>
+          <label for="genre">Genre:</label>
+          <input type="text" name="genre" id="genre" />
+        </div>
 
-      <div>
-        <label for="genre">Genre:</label>
-        <input type="text" name="genre" id="genre" />
-      </div>
-
-      <div>
-        <label for="review">Review:</label>
-        <textarea name="review" id="review"></textarea>
-      </div>
-
-      <div>
-        <label for="rating">Rating:</label>
-        <input type="number" name="rating" id="rating" min="1" max="5" />
-      </div>
-
-      <button type="submit">Save</button>
-    </form>
+        <button type="submit">Save</button>
+      </form>
+    </main>
 
     <script>
       document
@@ -76,7 +74,7 @@
             const result = await response.json();
             if (result.state === "1") {
               alert("Book added successfully!");
-              window.location.href = "/home";
+              window.location.href = "/library";
             } else {
               alert(`Failed to add book: ${result.msg}`);
             }

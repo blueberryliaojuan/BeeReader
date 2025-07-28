@@ -1,8 +1,9 @@
 // Import page routes
 const loginRoutes = require("./pages/loginRoutes");
-const homeRoutes = require("./pages/homeRoutes");
-const aboutRoutes = require("./pages/aboutRoutes");
+const libraryRoutes = require("./pages/libraryRoutes");
+const readingListRoutes = require("./pages/readingListRoutes");
 const addNewBookRoutes = require("./pages/addNewBookRoutesRoutes");
+const editBookRoutes = require("./pages/editBookRoutes");
 
 // Import API routes
 const userApiRoutes = require("./api/userApiRoutes");
@@ -12,9 +13,10 @@ const userApiRouter = require("./api/userApiRoutes");
 module.exports = (app) => {
   // Mount page routes
   app.use("/login", loginRoutes);
-  app.use("/home", homeRoutes);
+  app.use("/readingList", readingListRoutes);
+  app.use("/library", libraryRoutes);
   app.use("/addNewBook", addNewBookRoutes);
-  app.use("/about", aboutRoutes);
+  app.use("/editBook", editBookRoutes);
 
   // Mount API routes
   app.use("/api/users", userApiRoutes);

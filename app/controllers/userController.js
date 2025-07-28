@@ -63,10 +63,18 @@ const userController = {
             message: "Invalid credentials.",
           });
         }
+        //if login successfully, set the session
+        //afterward this info can be get from any page through req.session.user
+        req.session.user = {
+          id: results[0].id,
+          username: results[0].username,
+          email: results[0].email,
+          profile_picture: results[0].profile_picture || "/images/userPic.png",
+        };
         res.status(200).json({
           state: "1",
           msg: "Login successful for user: " + email,
-          data: results[0], //only return needed user information
+          data: req.session.user, //only return needed user information
         });
       }
     } catch (err) {

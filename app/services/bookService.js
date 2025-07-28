@@ -6,10 +6,9 @@ const bookService = {
     //id, title,author,year should not be null
     // Ensure mandatory fields are not null
     const SQL =
-      "INSERT INTO Books (id, title, author, year, genre, imageUrl,  review, rating, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO books (id, title, author, year, genre, image_url) VALUES (?, ?, ?, ?, ?, ?)";
     const id = uuidv4();
-    const { title, author, year, genre, imageUrl, review, rating, status } =
-      data;
+    const { title, author, year, genre, image_url } = data;
 
     const parameters = [
       id,
@@ -17,10 +16,7 @@ const bookService = {
       author,
       parseInt(year, 10),
       genre || null,
-      imageUrl || null,
-      review || null,
-      rating || null,
-      status || 1,
+      image_url || null,
     ];
     console.log("parameters", parameters);
     return new Promise((resolve, reject) => {
@@ -32,7 +28,7 @@ const bookService = {
   },
 
   getAllBooks() {
-    const SQL = "SELECT * FROM Books WHERE isDeleted = 0";
+    const SQL = "SELECT * FROM books WHERE is_deleted = 0";
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, [], (err, results) => {
         if (err) {
@@ -45,12 +41,13 @@ const bookService = {
   },
 
   getBookById(id) {
-    const SQL = "SELECT * FROM Books WHERE id = ? AND isDeleted = 0";
+    const SQL = "SELECT * FROM books WHERE id = ? AND is_deleted = 0";
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, [id], (err, results) => {
         if (err) {
           reject(err);
         }
+        console.log("results", results);
         resolve(results.length ? results[0] : null);
       });
     });
@@ -58,20 +55,10 @@ const bookService = {
 
   updateBook(id, data) {
     const SQL =
-      "UPDATE Books SET title=?, author=?, year=?, genre=?, imageUrl=?, review=?, rating=?, status=? WHERE id=?";
-    const { title, author, year, genre, imageUrl, review, rating, status } =
-      data;
-    const parameters = [
-      title,
-      author,
-      year,
-      genre,
-      imageUrl,
-      review,
-      rating,
-      status,
-      id,
-    ];
+      "UPDATE books SET title=?, author=?, year=?, genre=?, image_url=? WHERE id=?";
+
+    const { title, author, year, genre, image_url } = data;
+    const parameters = [title, author, year, genre, image_url, id];
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, parameters, (err, results) => {
         if (err) {
@@ -85,10 +72,10 @@ const bookService = {
 
   deleteBook(id) {
     // Logic to delete a book by ID
-    //const SQL = "DELETE FROM Books where id=?"; // DELETE does not need "*"
+    //const SQL = "DELETE FROM books where id=?"; // DELETE does not need "*"
     //soft delete
     const SQL =
-      "UPDATE Books SET isDeleted = TRUE, deletedAt = NOW() WHERE id = ?";
+      "UPDATE books SET is_deleted = TRUE, deleted_at = NOW() WHERE id = ?";
     return new Promise((resolve, reject) => {
       dbPool.connection(SQL, [id], (err, results) => {
         if (err) return reject(err);

@@ -1,15 +1,3 @@
-:root {
-  --primary: #333333;
-  --yellow: #f7d755;
-  --orange: #cc5803;
-  --button-radius: 0.7rem;
-  --max-width: 860px;
-  --max-height: 620px;
-  font-size: 16px;
-  font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
-  box-sizing: border-box;
-}
-
 body {
   align-items: center;
   display: grid;
@@ -27,7 +15,6 @@ body::before {
   height: 100%;
   background-color: var(--yellow);
   opacity: 0.7;
-  /* filter: blur(2px); */
   z-index: -1;
 }
 header {

@@ -9,11 +9,11 @@ const bookController = {
     console.log("====================================");
     try {
       // multer.single("cover") saved file in public/images，and created req.file.filename
-      const imageUrl = req.file ? `/images/${req.file.filename}` : null;
+      const image_url = req.file ? `/images/${req.file.filename}` : null;
 
       const data = {
         ...req.body,
-        imageUrl,
+        image_url,
       };
       const results = await bookService.createBook(data);
       res.status(201).json({
@@ -58,7 +58,7 @@ const bookController = {
     }
   },
 
-  //postman: /books/d9fba0ce-1b44-49e1-a902-4b0b3bc3f7e4
+  //postman: /books/1393b346-e24e-434a-a23f-805258fbe374
 
   //Query Parameters (req.query)
   //In {{base_url}}/books/?id=123, id is part of the query string.
@@ -75,12 +75,6 @@ const bookController = {
     try {
       const id = req.params.id;
       const results = await bookService.getBookById(id);
-      if (results.length === 0) {
-        return res.status(404).json({
-          state: "0",
-          msg: "Book not found",
-        });
-      }
       res.status(200).json({
         state: "1",
         msg: "Query successful",
@@ -100,14 +94,23 @@ const bookController = {
     console.log("bookController-updateBook");
     console.log("req.params", req.params);
     console.log("req.body", req.body);
+    console.log("req.file", req.file);
     console.log("====================================");
+
+    const id = req.params.id;
+    const image_url = req.file?.filename
+      ? `/images/${req.file.filename}`
+      : req.body.existingCover;
+    const data = {
+      ...req.body,
+      image_url,
+    };
+    console.log("data", data);
     try {
-      const id = req.params.id;
-      const data = req.body;
-      if (!id || !data.title || !data.author || !data.year) {
+      if (!data.title || !data.author || !data.year) {
         return res.status(400).json({
           state: "0",
-          msg: "Invalid input: 'id', 'title', 'author', 'year', and 'genre' are required.",
+          msg: "Invalid input: 'title', 'author', 'year' are required.",
         });
       }
       const results = await bookService.updateBook(id, data);

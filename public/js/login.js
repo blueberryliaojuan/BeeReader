@@ -128,6 +128,7 @@ function validatePassword(password) {
   return ""; // 合格时返回空字符串
 }
 
+//sign up
 fistForm.addEventListener("submit", async (e) => {
   // console.log("e", e);
   // console.log("e.target", e.target);
@@ -181,6 +182,7 @@ fistForm.addEventListener("submit", async (e) => {
   } catch {}
 });
 
+//sign in
 secondForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   console.log("Sign in Form Submitted");
@@ -196,12 +198,14 @@ secondForm.addEventListener("submit", async (e) => {
     const response = await fetch("/api/users/signin", {
       method: "POST",
       body: formData, // browser automatically sets Content-Type to multipart/form-data
+      credentials: "include",
     });
     const result = await response.json();
     console.log("result", result);
     if (result.state === "1") {
-      localStorage.setItem("user", JSON.stringify(result.data));
-      window.location.href = "/home";
+      //instead of saving the user info in localstorage, I stored it in req.session.user
+      // localStorage.setItem("user", JSON.stringify(result.data));
+      window.location.href = "/library";
     } else {
       alert(`Failed to login: ${result.msg}`);
     }

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/addNewBook.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <header class="heading">
+      <div class="site-name">BeeReader</div>
+      <img src="/images/logo.png" alt="" />
+    </header>
+    <main class="main-content">
+      <h1>Edit Book</h1>
+
+      <form
+        id="book-form"
+        action="/api/books"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <!-- I want to edit the book,  do a PUT request with the id as a hidden field: -->
+        <input type="hidden" name="id" id="id" value="<%= data.id %>" />
+
+        <div>
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="<%= data.title %>"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="author">Author:</label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            value="<%= data.author %>"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="year">Year:</label>
+          <input
+            type="text"
+            name="year"
+            id="year"
+            value="<%= data.year %>"
+            required
+          />
+        </div>
+        <!--Don’t put required on the image input for edit — the user may not want to change the cover  -->
+        <div>
+          <label for="cover">Cover Image:</label>
+          <!-- "cover" should be the same with backend, upload.single("cover") -->
+          <input type="file" name="cover" id="cover" />
+          <!-- <% if (data.image_url) { %>
+          <p>Current cover: <%= data.image_url %></p>
+          <% } %> -->
+        </div>
+
+        <!-- the current image as hidden -->
+        <input
+          type="hidden"
+          name="existingCover"
+          value="<%= data.image_url %>"
+        />
+
+        <div>
+          <label for="genre">Genre:</label>
+          <input type="text" name="genre" id="genre" />
+        </div>
+
+        <button type="submit">Save</button>
+      </form>
+    </main>
+
+    <script>
+          //In Express route, I've done：res.render("editBook", { title: "Edit Book Page", data: result });
+          //res.render(...) is server-side rendering — it generates the HTML before it reaches the browser.
+          //<script> tags in my EJS file run client-side, inside the browser.
+          //If I need data in script, I need to embed the data variable into JavaScript using EJS syntax
+          const data = <%- JSON.stringify(data) %>
+          console.log("data in script:", data.id);
+
+          const{id}=data
+
+          //submit the changes
+          document.getElementById("book-form").addEventListener("submit", async function (e) {
+          e.preventDefault(); // prevent default form submission
+          //The browser will package the file and text fields into multipart/form-data format when sending the request.
+          const form = e.target;
+         // form is the whole form object
+          const formData = new FormData(form); // collects all inputs, including file
+
+
+        try {
+          const response = await fetch(`/api/books/${id}`, {
+            method: "PUT",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (result.state === "1") {
+            alert("Book saved successfully!");
+            window.location.href = "/library"; // redirect if needed
+          } else {
+            alert("Save failed: " + result.msg);
+          }
+        } catch (error) {
+          console.error("Submit error:", error);
+          alert("Something went wrong.");
+        }
+
+      })
+    </script>
+  </body>
+</html>

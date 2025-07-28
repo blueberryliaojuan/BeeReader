@@ -9,7 +9,7 @@ bookRouter.post("/", upload.single("cover"), bookController.createBook); // POST
 
 bookRouter.get("/", bookController.getAllBooks); // GET /books
 bookRouter.get("/:id", bookController.getBookById); // GET /books/:id
-bookRouter.put("/:id", bookController.updateBook); // PUT /books/:id
+bookRouter.put("/:id", upload.single("cover"), bookController.updateBook); // PUT /books/:id
 bookRouter.delete("/:id", bookController.deleteBook); // DELETE /books/:id
 
 module.exports = bookRouter;

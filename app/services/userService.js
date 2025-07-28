@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const userService = {
   verifyUser(email, password) {
     // const { email, password } = data;
-    const SQL = "SELECT * FROM Users WHERE email=?";
+    const SQL = "SELECT * FROM users WHERE email=?";
     const parameters = [email];
 
     return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ const userService = {
     });
   },
   checkEmailAvailability(email) {
-    const SQL = "SELECT * FROM Users WHERE email=?";
+    const SQL = "SELECT * FROM users WHERE email=?";
     const parameters = [email];
 
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const userService = {
     // const { username, email, password } = data;
     const id = uuidv4(); // Generate a unique user ID
     const SQL =
-      "INSERT INTO Users (id, username, email, password) VALUES (?, ?, ?, ?)";
+      "INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)";
     const parameters = [id, username, email, password];
 
     return new Promise((resolve, reject) => {
