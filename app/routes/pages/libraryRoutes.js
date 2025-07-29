@@ -9,10 +9,10 @@ libraryRouter.get("/", (req, res) => {
   fetch("http://localhost:3000/api/books") //
     .then((response) => {
       // check response status
-      if (!response.ok) {
+      if (response.status != 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json(); // Parse the response into JSON forma
+      return response.json(); // Parse the response into JavaScript object
     })
     .then((result) => {
       // console.log("Books data:", result);

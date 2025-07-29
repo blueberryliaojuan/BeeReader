@@ -40,6 +40,29 @@ const bookService = {
     });
   },
 
+  searchBook(search) {
+    let SQL = "SELECT * FROM books WHERE is_deleted = 0";
+    let parameters = [];
+
+    if (search) {
+      SQL += " AND (title LIKE ? OR author LIKE ?)";
+      //% means any chart in mySQL
+      const keyword = `%${search}%`;
+      //push twice because we do not know the key word is title or author
+      parameters.push(keyword, keyword);
+    }
+
+    return new Promise((resolve, reject) => {
+      dbPool.connection(SQL, parameters, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  },
+
   getBookById(id) {
     const SQL = "SELECT * FROM books WHERE id = ? AND is_deleted = 0";
     return new Promise((resolve, reject) => {

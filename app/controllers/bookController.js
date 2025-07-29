@@ -58,6 +58,35 @@ const bookController = {
     }
   },
 
+  async searchBook(req, res) {
+    console.log("====================================");
+    console.log("bookController-searchBook");
+    console.log("====================================");
+    //Handle Query Parameters in searchBook, on condition user send id as query parameter by mistake
+    //Check for query parameter 'id' and forward to getBookById logic
+    if (req.query.id) {
+      return this.getBookById({ params: { id: req.query.id } }, res);
+    }
+    try {
+      const { search } = req.query;
+      const results = await bookService.searchBook(search);
+      res.status(200).json({
+        state: "1",
+        msg: "Query successful",
+        data: results, // 'results' contains the query results as a JavaScript object/array
+      });
+    } catch (err) {
+      console.error("Query failed:", err);
+      // 'res' is the Express response object
+      // .json Convert JavaScript object to JSON and send it as the HTTP response
+      res.status(500).json({
+        state: "0",
+        msg: "Database query failed",
+        error: err.message,
+      });
+    }
+  },
+
   //postman: /books/1393b346-e24e-434a-a23f-805258fbe374
 
   //Query Parameters (req.query)

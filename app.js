@@ -43,7 +43,7 @@ app.use(
 
 // ******* Routing *******
 // Import and set up routes
-require("./app/routes")(app);
+require("./app/")(app);
 
 // Start the server
 function printBeeReader() {

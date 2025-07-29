@@ -34,6 +34,7 @@ const userController = {
       });
     }
   },
+
   async verifyLoginCredentials(req, res) {
     console.log("====================================");
     console.log("userController-verifyLoginCredentials");

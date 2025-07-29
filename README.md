@@ -52,6 +52,10 @@ The website is mobile-friendly and adapts to various screen sizes.
 -- Backend - Use bcrypt.hash(password) to securely hash the password before storing it in the database during signup
 -- Backend - Use bcrypt.compare(password, hashedPassword) to verify the submitted password against the stored hash during login.
 
+### 10
+
+Express-validator
+
 ---
 
 ## Functionality Overview

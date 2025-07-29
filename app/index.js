@@ -1,14 +1,14 @@
 // Import page routes
-const loginRoutes = require("./pages/loginRoutes");
-const libraryRoutes = require("./pages/libraryRoutes");
-const readingListRoutes = require("./pages/readingListRoutes");
-const addNewBookRoutes = require("./pages/addNewBookRoutesRoutes");
-const editBookRoutes = require("./pages/editBookRoutes");
+const loginRoutes = require("./routes/pages/loginRoutes");
+const libraryRoutes = require("./routes/pages/libraryRoutes");
+const readingListRoutes = require("./routes/pages/readingListRoutes");
+const addNewBookRoutes = require("./routes/pages/addNewBookRoutesRoutes");
+const editBookRoutes = require("./routes/pages/editBookRoutes");
 
 // Import API routes
-const userApiRoutes = require("./api/userApiRoutes");
-const bookApiRoutes = require("./api/booksApiRoutes");
-const userApiRouter = require("./api/userApiRoutes");
+const userApiRoutes = require("./routes/api/userApiRoutes");
+const bookApiRoutes = require("./routes/api/booksApiRoutes");
+const userApiRouter = require("./routes/api/userApiRoutes");
 
 module.exports = (app) => {
   // Mount page routes

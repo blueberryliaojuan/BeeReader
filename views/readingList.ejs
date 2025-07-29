@@ -22,7 +22,6 @@
     </header>
     <main>
       <div class="sidebar">
-        <!-- Main Section -->
         <div class="section">
           <a href="/library" class="menu-item">
             <svg
@@ -94,7 +93,9 @@
           </a>
         </div>
       </div>
+
       <div class="main-content">
+        <!-- user -->
         <div class="user-info">
           <img
             src="<%= profilePicture %>"
@@ -103,16 +104,61 @@
           />
           <span class="welcome-message">Welcome, <%= userName %></span>
         </div>
-        <div class="bookshelf">
-          <p class="category">My Reading List</p>
-          <ul id="book-list">
-            <li>
-              <h3>blank</h3>
-              <p class="author">In progress</p>
 
-              <img src="" alt="" />
-            </li>
-          </ul>
+        <!-- bookshelf -->
+        <div class="bookshelf">
+          <h1 class="category">My Reading List</h1>
+          <!-- search -->
+          <form class="search-form" id="searchForm">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search books by title or author"
+              id="searchInput"
+            />
+            <button type="button" id="searchBtn" class="btn btn-search">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                width="20"
+                height="20"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-4.35-4.35m1.1-5.4a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"
+                />
+              </svg>
+            </button>
+          </form>
+          <!-- library -->
+          <div class="horizontal-scroll-section">
+            <h2 class="section-title">Recommended Books</h2>
+            <div class="book-scroll-container">
+              <% libraryBooks.forEach(book => { %>
+              <div class="book-card">
+                <img src="<%= book.image_url %>" alt="<%= book.title %>" />
+                <h4><%= book.title %></h4>
+                <p><%= book.author %></p>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="bookShelf">
+            <ul id="book-list">
+              <li>
+                <h2>My Reading List</h2>
+                <p class="author">In progress</p>
+
+                <img src="" alt="" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </main>

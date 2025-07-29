@@ -40,3 +40,13 @@ deleted_at DATETIME DEFAULT NULL
 );
 
 # userbooks table
+
+CREATE TABLE user_books (
+id VARCHAR(36) PRIMARY KEY,  
+ user_id VARCHAR(36) NOT NULL,  
+ book_id VARCHAR(36) NOT NULL,  
+ added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+UNIQUE KEY unique_user_book (user_id, book_id), -- avoid adding same record
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (book_id) REFERENCES books(id)
+);

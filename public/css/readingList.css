@@ -11,13 +11,123 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
 .category {
   width: 100%;
-  line-height: 40px;
-  font-size: 28px;
+  font-size: 1.75em;
   font-weight: 800;
   text-align: center;
-  color: #333333;
-  margin: 50px 0;
+  color: var(--primary);
   position: relative;
+}
+
+/* search part */
+
+.search-form {
+  float: left;
+  height: 3.125em;
+  position: relative;
+}
+
+.search-form input {
+  border: 1px solid var(--yellow);
+  font-size: 1em;
+  height: 3em;
+  padding: 0.25em 0.5em;
+  position: absolute;
+  width: 16em;
+  border-right: none;
+  transition: all 0.3s ease-in;
+}
+.search-form input:focus {
+  outline: none;
+  width: 20em;
+}
+
+.search-form button {
+  text-align: center;
+}
+.search-form button:focus {
+  outline: none;
+}
+.search-form button.btn-search {
+  border: none;
+  font-size: 1em;
+  padding: 0.25em;
+  position: absolute;
+}
+.search-form button.btn-search {
+  height: 3em;
+  width: 3em;
+  background: var(--yellow);
+  left: 16em;
+  transition: all 0.3s ease-in;
+}
+
+.search-form input:focus ~ button.btn-search {
+  background: var(--yellow);
+  border-radius: 0 50% 50% 0;
+  color: #fff;
+  left: 20em;
+}
+
+/* library part */
+.horizontal-scroll-section {
+  margin: 6em auto 2em;
+  padding: 0 1em;
+  max-width: 100%;
+}
+
+.section-title {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  text-align: left;
+  color: #333;
+}
+
+.book-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1em;
+  padding-bottom: 1em;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.book-card {
+  flex: 0 0 auto;
+  width: 160px;
+  scroll-snap-align: start;
+  background: #fff;
+  padding: 1em;
+  border-radius: 8px;
+  text-align: center;
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+}
+
+.book-card img {
+  max-width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5em;
+}
+
+.book-card h4 {
+  font-size: 1em;
+  margin: 0.5em 0 0.25em;
+  color: #222;
+}
+
+.book-card p {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.bookShelf {
+  margin-top: 2rem;
+}
+
+ul {
+  list-style-type: none;
 }

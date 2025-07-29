@@ -39,17 +39,16 @@ Manages environment-related configuration information (e.g., database connection
 
 ```
 config/
-├── dbConfig.js
-└── appConfig.js
+└── dbConfig.js
 ```
 
 ## 5. `middlewares/`
 
-Custom middleware logic, such as authentication, error handling, and request logging.
+Custom middleware logic, such as authentication, checkSessionExpiry.
 
 ## 6. `tests/`
 
-Contains test code, using tools like Mocha, Chai, or Jest.
+Contains test code, using tools like Mocha or Jest.
 
 ```
 tests/
@@ -59,7 +58,7 @@ tests/
 
 ## 7. `utils/`
 
-General-purpose utility functions, such as date formatting, logging tools, and encryption utilities.
+General-purpose utility functions, such as date formatting, multer storage.
 
 ## 8. `app.js`
 
