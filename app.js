@@ -11,6 +11,12 @@ app.set("view engine", "ejs");
 // Set the views directory
 app.set("views", path.join(__dirname, "views"));
 
+//  Redirect '/' to '/login'
+//res.redirect("/") must be before all static and use()
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
+
 // Enable CORS for all routes
 const cors = require("cors");
 app.use(
