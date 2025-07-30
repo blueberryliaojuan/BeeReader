@@ -10,6 +10,7 @@ document.querySelectorAll(".delete-btn").forEach((button) => {
 
     fetch(`/api/books/${bookId}`, {
       method: "DELETE",
+      credentials: "include",
     })
       .then((res) => {
         if (res.ok) {

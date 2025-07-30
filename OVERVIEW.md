@@ -46,16 +46,6 @@ config/
 
 Custom middleware logic, such as authentication, checkSessionExpiry.
 
-## 6. `tests/`
-
-Contains test code, using tools like Mocha or Jest.
-
-```
-tests/
-├── controllers/
-└── routes/
-```
-
 ## 7. `utils/`
 
 General-purpose utility functions, such as date formatting, multer storage.

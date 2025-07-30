@@ -11,15 +11,36 @@ app.set("view engine", "ejs");
 // Set the views directory
 app.set("views", path.join(__dirname, "views"));
 
+// Enable CORS for all routes
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:3000", // my front end
+    credentials: true, // allow cookie, this is important
+  })
+);
+
+app.use(
+  session({
+    secret: "my-secret-key",
+    saveUninitialized: false, //do not save empty
+    resave: false, //if cookie is not set, then do not resave
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2, // 2 hours,
+      httpOnly: true, // JavaScript not allowed to change cookie, security
+      secure: false, //if https, change to true
+      sameSite: "lax",
+    },
+  })
+);
+
 // ******* Express Middlewares *******
 app.use(express.json()); // parse JSON data
 app.use(express.urlencoded({ extended: true })); // parse URL-encoded data
 app.use(express.static(path.join(__dirname, "public"))); // serve static files from the 'public' directory
 
 // ******* Third Party Middlewares ******
-// Enable CORS for all routes
-const cors = require("cors");
-app.use(cors());
+
 //parse cookies from http requests and put them in req.cookies
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); // parse cookies
@@ -28,18 +49,6 @@ const logger = require("morgan");
 app.use(logger("dev")); // logging middleware
 //handle errors
 const createError = require("http-errors");
-
-app.use(
-  session({
-    secret: "my-secret-key",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 2, // 2 hours,
-      httpOnly: true,
-    },
-  })
-);
 
 // ******* Routing *******
 // Import and set up routes

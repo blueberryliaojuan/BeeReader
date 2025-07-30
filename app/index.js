@@ -9,6 +9,7 @@ const editBookRoutes = require("./routes/pages/editBookRoutes");
 const userApiRoutes = require("./routes/api/userApiRoutes");
 const bookApiRoutes = require("./routes/api/booksApiRoutes");
 const userApiRouter = require("./routes/api/userApiRoutes");
+const userBookApiRouter = require("./routes/api/userBookApiRoutes");
 
 module.exports = (app) => {
   // Mount page routes
@@ -22,6 +23,7 @@ module.exports = (app) => {
   app.use("/api/users", userApiRoutes);
   app.use("/api/books", bookApiRoutes);
   app.use("/api/users", userApiRouter);
+  app.use("/api/userBooks", userBookApiRouter);
 
   // 404 handler
   app.use((req, res, next) => {

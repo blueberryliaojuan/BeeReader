@@ -38,7 +38,9 @@ const userController = {
   async verifyLoginCredentials(req, res) {
     console.log("====================================");
     console.log("userController-verifyLoginCredentials");
-    console.log("req", req.body);
+    // console.log("req", req.body);
+    console.log("************SID:", req.sessionID);
+    console.log("Session Object:", req.session);
     console.log("====================================");
     try {
       let { email, password } = req.body;
@@ -52,7 +54,7 @@ const userController = {
       }
       //  Verify user credentials
       const results = await userService.verifyUser(email);
-      console.log("results", results);
+      // console.log("results", results);
       if (results.length > 0) {
         console.log("Login successful for user:", email);
         const user = results[0];
@@ -65,18 +67,32 @@ const userController = {
           });
         }
         //if login successfully, set the session
-        //afterward this info can be get from any page through req.session.user
+        //afterwards this info can be get from any page through req.session.user
         req.session.user = {
           id: results[0].id,
           username: results[0].username,
           email: results[0].email,
           profile_picture: results[0].profile_picture || "/images/userPic.png",
         };
+        console.log("req.session.user", req.session.user);
+        console.log("************SID:", req.sessionID);
+        console.log("Session Object:", req.session);
+        // req.session.save((err) => {
+        //   if (err) {
+        //     console.error("Session save error:", err);
+        //     return res
+        //       .status(500)
+        //       .json({ state: "0", msg: "Session save failed" });
+        //   }
+
+        //   console.log("✅ Session user set:", req.session.user);
+
         res.status(200).json({
           state: "1",
-          msg: "Login successful for user: " + email,
-          data: req.session.user, //only return needed user information
+          msg: "Login successful",
+          data: req.session.user,
         });
+        // });
       }
     } catch (err) {
       console.error("Login verification failed:", err);

@@ -74,7 +74,6 @@ body {
 /* library part */
 .horizontal-scroll-section {
   margin: 6em auto 2em;
-  padding: 0 1em;
   max-width: 100%;
 }
 
@@ -94,7 +93,9 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* library */
 .book-card {
+  position: relative;
   flex: 0 0 auto;
   width: 160px;
   scroll-snap-align: start;
@@ -124,10 +125,102 @@ body {
   color: #666;
 }
 
+.add-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.add-btn:hover {
+  background: var(--yellow);
+}
 .bookShelf {
   margin-top: 2rem;
+  display: flex;
 }
 
 ul {
   list-style-type: none;
+}
+
+h2 {
+  background: var(--yellow);
+  padding: 6px;
+  padding-left: 20px;
+}
+/* reading list */
+
+.reading-list-container {
+  list-style-type: none;
+
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: start;
+  gap: 20px;
+}
+
+.reading-card {
+  position: relative;
+  background: #f9f9f9;
+  padding: 15px;
+  border: 2px solid var(--yellow);
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+}
+
+.reading-card img {
+  max-width: 100%;
+  height: 240px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.reading-info {
+  flex: 1;
+}
+
+.reading-info h3 {
+  font-size: 18px;
+  height: 28px;
+  text-align: center;
+}
+
+.reading-info .author {
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 3em;
+  height: 3em;
+  background: var(--yellow);
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: var(--orange);
+  color: white;
 }

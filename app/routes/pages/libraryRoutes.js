@@ -1,33 +1,30 @@
 const express = require("express");
+const axios = require("axios");
 const libraryRouter = express.Router();
 
-//Library Page
-libraryRouter.get("/", (req, res) => {
+libraryRouter.get("/", async (req, res) => {
   const user = req.session.user;
-  console.log("user", user);
-  //get all books info
-  fetch("http://localhost:3000/api/books") //
-    .then((response) => {
-      // check response status
-      if (response.status != 200) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json(); // Parse the response into JavaScript object
-    })
-    .then((result) => {
-      // console.log("Books data:", result);
-      //res.render(view, data)
-      //"library" is the view file name
-      res.render("library", {
-        title: "library Page",
-        data: result.data,
-        userName: user.username,
-        profilePicture: user.profile_picture || "/images/userPic.png", //if no image, use a default
-      });
-    })
-    .catch((error) => {
-      console.error("Failed to fetch books:", error);
+  console.log("user in library page, req.session.user", user);
+
+  try {
+    const bookRes = await axios.get("http://localhost:3000/api/books", {
+      headers: {
+        cookie: req.headers.cookie, // 手动附上浏览器发来的 cookie
+      },
     });
+
+    const result = bookRes.data;
+
+    res.render("library", {
+      title: "library Page",
+      data: result.data,
+      userName: user.username,
+      profilePicture: user.profile_picture || "/images/userPic.png", // 如果没有图片，使用默认
+    });
+  } catch (error) {
+    console.error("Failed to fetch books:", error);
+    res.status(500).send("Server error");
+  }
 });
 
 module.exports = libraryRouter;

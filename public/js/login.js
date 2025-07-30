@@ -42,6 +42,7 @@ emailInput.addEventListener("blur", async (e) => {
 function checkEmailAvailability(email) {
   return fetch("/api/users/checkEmailAvailability", {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -203,8 +204,8 @@ secondForm.addEventListener("submit", async (e) => {
     const result = await response.json();
     console.log("result", result);
     if (result.state === "1") {
-      //instead of saving the user info in localstorage, I stored it in req.session.user
-      // localStorage.setItem("user", JSON.stringify(result.data));
+      //besides of saving the user info in localstorage, I stored it in req.session.user
+      localStorage.setItem("user_id", JSON.stringify(result.data.id));
       window.location.href = "/library";
     } else {
       alert(`Failed to login: ${result.msg}`);

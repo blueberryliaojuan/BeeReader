@@ -34,6 +34,9 @@ const bookController = {
     console.log("====================================");
     console.log("bookController-getAllBooks");
     console.log("====================================");
+
+    console.log(req.session);
+
     //Handle Query Parameters in getAllBooks, on condition user send id as query parameter by mistake
     //Check for query parameter 'id' and forward to getBookById logic
     if (req.query.id) {
@@ -61,6 +64,8 @@ const bookController = {
   async searchBook(req, res) {
     console.log("====================================");
     console.log("bookController-searchBook");
+    console.log("************SID:", req.sessionID);
+    console.log("Session Object:", req.session);
     console.log("====================================");
     //Handle Query Parameters in searchBook, on condition user send id as query parameter by mistake
     //Check for query parameter 'id' and forward to getBookById logic

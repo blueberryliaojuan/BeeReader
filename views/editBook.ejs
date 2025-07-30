@@ -105,6 +105,7 @@
           const response = await fetch(`/api/books/${id}`, {
             method: "PUT",
             body: formData,
+           credentials: "include"
           });
 
           const result = await response.json();
