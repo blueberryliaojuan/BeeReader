@@ -1,5 +1,26 @@
 # Directory Overview
 
+BeeReader/
+├── app/
+│ ├── controllers/
+│ ├── routes/
+│ │ ├── api/
+│ │ ├── pages/
+│ │ └── index.js
+│ └── services/
+├── config/
+│ └── dbConfig.js
+├── middlewares/
+├── public/
+│ ├── css/
+│ ├── js/
+│ └── images/
+├── utils/
+├── views/
+├── app.js
+├── package.json
+└── README.md
+
 ## 1. `app/`
 
 Core business logic folder, containing the following subdirectories:

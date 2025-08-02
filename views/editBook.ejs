@@ -123,63 +123,10 @@
 
     <!-- ===== Client-side Script ===== -->
     <script>
-       /**
-        * Handles form submission with JavaScript.
-        * Sends a PUT request with FormData (including optional file).
-        */
 
-
-
-       const data = <%- JSON.stringify(data) %>; // Inject server-rendered data
-       const { id } = data;
-       const form = document.getElementById("book-form");
-       const coverInput = document.getElementById("cover");
-       const coverPreview = document.getElementById("cover-preview");
-       const submitBtn = form.querySelector("button[type='submit']");
-
-      //preview cover
-       coverInput.addEventListener("change", () => {
-       const file = coverInput.files[0];
-       if (file) {
-       const reader = new FileReader();
-       reader.onload = (e) => {
-         coverPreview.src = e.target.result; // preview new cover
-       };
-       reader.readAsDataURL(file);
-       } else {
-       // recover the original cover
-       coverPreview.src = data.image_url || "";
-       }
-       });
-
-       form.addEventListener("submit", async function (e) {
-           e.preventDefault(); // Prevent full page reload
-
-           const form = e.target;
-           const formData = new FormData(form); // Includes text + file
-           submitBtn.disabled = true;
-           try {
-             const response = await fetch(`/api/books/${id}`, {
-               method: "PUT",
-               body: formData,
-               credentials: "include", // Keep session cookies
-             });
-
-             const result = await response.json();
-
-             if (result.state === "1") {
-               alert("Book saved successfully!");
-               window.location.href = "/library";
-             } else {
-               alert("Save failed: " + result.msg);
-             }
-           } catch (error) {
-             console.error("Submit error:", error);
-             alert("Something went wrong.");
-           }finally {
-             submitBtn.disabled = false;
-           }
-         });
+       // Expose the id to global scope
+      window.bookData = <%- JSON.stringify(data) %>; // Inject server-rendered data
     </script>
+    <script src="/js/editBook.js"></script>
   </body>
 </html>

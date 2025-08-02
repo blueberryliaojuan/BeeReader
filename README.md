@@ -72,6 +72,6 @@ The complete source code for **BeeReader** is available on GitHub:
 
 - please refer to DATABASE.md and SQL.md
 
-## 6. Project Structure
+## 6. File Structure
 
-- Please refer to STRUCTURE.md
+- Please refer to DIRECTORY.md

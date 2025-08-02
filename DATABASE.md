@@ -30,7 +30,7 @@ This table stores general book information, independent of users.
 | title      | VARCHAR(255) | Book title                               |
 | author     | VARCHAR(255) | Author's name                            |
 | genre      | VARCHAR(100) | Book genre or category                   |
-| image_url  | VARCHAR(255) | Optional URL to book image               |
+| image_url  | VARCHAR(255) | URL to book image                        |
 | year       | INT          | Year of publication                      |
 | is_deleted | BOOLEAN      | Soft delete flag (TRUE = hidden)         |
 | deleted_at | DATETIME     | Timestamp of soft delete (if applicable) |
