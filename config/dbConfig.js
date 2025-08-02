@@ -3,7 +3,7 @@
  * @description Database connection pool configuration and helper for BeeReader.
  *              Uses MySQL2's connection pool to manage efficient and reusable connections.
  * @author Juan Liao
- * @created 2025-07-31
+ * @created 2025-06-09
  */
 
 const mysql = require("mysql2");

@@ -1,6 +1,16 @@
+/*
+  @file library.css
+  @description BeeReader - Library Page Styles
+               Responsive grid layout for library books,
+               styling for book cards, authors, images, and buttons.
+  @created 2025-06-09
+*/
+
+/* ========== Global Reset & Layout ========== */
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -12,12 +22,16 @@ body {
   width: 100vw;
 }
 
+/* ========== Main Containers ========== */
 .bookshelf {
   flex: 1;
 }
+
 .library {
   flex: 1;
 }
+
+/* ========== Titles ========== */
 .category {
   width: 100%;
   font-size: 28px;
@@ -27,12 +41,14 @@ body {
   position: relative;
 }
 
+/* ========== Wrapper for center alignment ========== */
 .wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
+/* ========== Book list grid ========== */
 ul {
   list-style-type: none;
   width: 90%;
@@ -44,6 +60,7 @@ ul {
   gap: 40px;
 }
 
+/* ========== Individual book card ========== */
 li {
   background: #f9f9f9;
   padding: 15px;
@@ -75,14 +92,17 @@ li img {
   margin: 10px 0;
 }
 
+/* ========== Action buttons container ========== */
 .action-buttons {
   margin-bottom: 12px;
 }
 
+/* ========== Add button alignment helper ========== */
 .add {
   text-align: right;
 }
 
+/* ========== Margin right helper class ========== */
 .mr2 {
   margin-right: 2em;
 }

@@ -44,7 +44,7 @@ config/
 
 ## 5. `middlewares/`
 
-Custom middleware logic, such as authentication, checkSessionExpiry.
+Custom middleware logic, such as authentication, checkSessionExpiry etc.
 
 ## 7. `utils/`
 

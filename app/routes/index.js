@@ -23,14 +23,17 @@ const userBookApiRouter = require("./api/userBookApiRouter");
  * @param {object} app - Express application instance
  * @description Attaches all route handlers to the app.
  */
+
+const ensureAuthenticated = require("../../middlewares/authMiddleware");
 module.exports = (app) => {
   // -------------------- Mount Page Routes --------------------
   // Serve client-facing HTML pages
   app.use("/login", loginRouter);
-  app.use("/readingList", readingListRouter);
-  app.use("/library", libraryRouter);
-  app.use("/addNewBook", addNewBookRouter);
-  app.use("/editBook", editBookRouter);
+  // Protect routes that require login
+  app.use("/readingList", ensureAuthenticated, readingListRouter);
+  app.use("/library", ensureAuthenticated, libraryRouter);
+  app.use("/addNewBook", ensureAuthenticated, addNewBookRouter);
+  app.use("/editBook", ensureAuthenticated, editBookRouter);
 
   // -------------------- Mount API Routes --------------------
   // Serve backend API endpoints (JSON response)

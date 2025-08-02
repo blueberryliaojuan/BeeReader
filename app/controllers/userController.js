@@ -1,7 +1,26 @@
+/**
+ * @file userController.js
+ * @description
+ * Controller for user-related operations in the Express application.
+ * Handles user registration, login credential verification, and email availability checks.
+ *
+ * Responsibilities:
+ * - Accept and validate user input from HTTP requests.
+ * - Hash user passwords securely during registration.
+ * - Verify user login by comparing hashed passwords.
+ * - Manage user session data upon successful login.
+ * - Return clear and consistent JSON responses for success and error cases.
+ *
+ * Response structure:
+ * - JSON responses include 'state' (1 for success, 0 for failure), descriptive 'msg',
+ *   and 'data' when applicable, such as user session info on login success.
+ */
+
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
 const userService = require("../services/userService.js");
+
 const userController = {
   //postman:body-urlencoded
   async createUser(req, res) {
@@ -77,22 +96,18 @@ const userController = {
         console.log("req.session.user", req.session.user);
         console.log("************SID:", req.sessionID);
         console.log("Session Object:", req.session);
-        // req.session.save((err) => {
-        //   if (err) {
-        //     console.error("Session save error:", err);
-        //     return res
-        //       .status(500)
-        //       .json({ state: "0", msg: "Session save failed" });
-        //   }
-
-        //   console.log("✅ Session user set:", req.session.user);
 
         res.status(200).json({
           state: "1",
           msg: "Login successful",
           data: req.session.user,
         });
-        // });
+      } else {
+        // User not found
+        return res.status(401).json({
+          state: "0",
+          msg: "Invalid credentials.",
+        });
       }
     } catch (err) {
       console.error("Login verification failed:", err);
@@ -103,6 +118,7 @@ const userController = {
       });
     }
   },
+
   checkEmailAvailability(req, res) {
     console.log("====================================");
     console.log("userController-checkEmailAvailability");

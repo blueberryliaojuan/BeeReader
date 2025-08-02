@@ -1,29 +1,51 @@
+<!--
+  @file editBook.ejs
+  @description BeeReader - Edit Book Page
+               This page allows users to update an existing book entry.
+               Users can modify title, author, year, genre, and optionally upload a new cover image.
+  @created 2025-06-09
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Responsive settings for mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Shared layout and custom styling -->
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/addNewBook.css" />
-    <title><%= title %></title>
+
+    <!-- Page title (populated via EJS) -->
+    <title><%= title|| "Edit Book - BeeReader" %></title>
   </head>
+
   <body>
+    <!-- ===== Site Header ===== -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="" />
+      <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
+
+    <!-- ===== Main Content ===== -->
     <main class="main-content">
       <h1>Edit Book</h1>
 
+      <!-- 
+        Edit form for book.
+        Uses FormData and fetch() to send PUT request with possible image upload.
+      -->
       <form
         id="book-form"
         action="/api/books"
         method="POST"
         enctype="multipart/form-data"
       >
-        <!-- I want to edit the book,  do a PUT request with the id as a hidden field: -->
+        <!-- Book ID (hidden) -->
         <input type="hidden" name="id" id="id" value="<%= data.id %>" />
 
+        <!-- Book Title -->
         <div>
           <label for="title">Title:</label>
           <input
@@ -35,6 +57,7 @@
           />
         </div>
 
+        <!-- Author -->
         <div>
           <label for="author">Author:</label>
           <input
@@ -46,82 +69,117 @@
           />
         </div>
 
+        <!-- Publication Year -->
         <div>
           <label for="year">Year:</label>
           <input
-            type="text"
+            type="number"
             name="year"
             id="year"
             value="<%= data.year %>"
             required
+            min="1000"
+            max="2100"
           />
         </div>
-        <!--Don’t put required on the image input for edit — the user may not want to change the cover  -->
+
+        <!-- Optional new cover image -->
         <div>
           <label for="cover">Cover Image:</label>
-          <!-- "cover" should be the same with backend, upload.single("cover") -->
-          <input type="file" name="cover" id="cover" />
-          <!-- <% if (data.image_url) { %>
+          <input type="file" name="cover" id="cover" accept="image/*" />
+          <% if (data.image_url) { %>
           <p>Current cover: <%= data.image_url %></p>
-          <% } %> -->
+          <img
+            id="cover-preview"
+            src="<%= data.image_url %>"
+            alt="Current cover image"
+            style="max-width: 120px"
+          />
+          <% } %>
         </div>
 
-        <!-- the current image as hidden -->
+        <!-- Hidden field to preserve original image if not replaced -->
         <input
           type="hidden"
           name="existingCover"
           value="<%= data.image_url %>"
         />
 
+        <!-- Optional Genre -->
         <div>
           <label for="genre">Genre:</label>
-          <input type="text" name="genre" id="genre" />
+          <input
+            type="text"
+            name="genre"
+            id="genre"
+            value="<%= data.genre || '' %>"
+          />
         </div>
 
+        <!-- Save button -->
         <button type="submit">Save</button>
       </form>
     </main>
 
+    <!-- ===== Client-side Script ===== -->
     <script>
-          //In Express route, I've done：res.render("editBook", { title: "Edit Book Page", data: result });
-          //res.render(...) is server-side rendering — it generates the HTML before it reaches the browser.
-          //<script> tags in my EJS file run client-side, inside the browser.
-          //If I need data in script, I need to embed the data variable into JavaScript using EJS syntax
-          const data = <%- JSON.stringify(data) %>
-          console.log("data in script:", data.id);
-
-          const{id}=data
-
-          //submit the changes
-          document.getElementById("book-form").addEventListener("submit", async function (e) {
-          e.preventDefault(); // prevent default form submission
-          //The browser will package the file and text fields into multipart/form-data format when sending the request.
-          const form = e.target;
-         // form is the whole form object
-          const formData = new FormData(form); // collects all inputs, including file
+       /**
+        * Handles form submission with JavaScript.
+        * Sends a PUT request with FormData (including optional file).
+        */
 
 
-        try {
-          const response = await fetch(`/api/books/${id}`, {
-            method: "PUT",
-            body: formData,
-           credentials: "include"
-          });
 
-          const result = await response.json();
+       const data = <%- JSON.stringify(data) %>; // Inject server-rendered data
+       const { id } = data;
+       const form = document.getElementById("book-form");
+       const coverInput = document.getElementById("cover");
+       const coverPreview = document.getElementById("cover-preview");
+       const submitBtn = form.querySelector("button[type='submit']");
 
-          if (result.state === "1") {
-            alert("Book saved successfully!");
-            window.location.href = "/library"; // redirect if needed
-          } else {
-            alert("Save failed: " + result.msg);
-          }
-        } catch (error) {
-          console.error("Submit error:", error);
-          alert("Something went wrong.");
-        }
+      //preview cover
+       coverInput.addEventListener("change", () => {
+       const file = coverInput.files[0];
+       if (file) {
+       const reader = new FileReader();
+       reader.onload = (e) => {
+         coverPreview.src = e.target.result; // preview new cover
+       };
+       reader.readAsDataURL(file);
+       } else {
+       // recover the original cover
+       coverPreview.src = data.image_url || "";
+       }
+       });
 
-      })
+       form.addEventListener("submit", async function (e) {
+           e.preventDefault(); // Prevent full page reload
+
+           const form = e.target;
+           const formData = new FormData(form); // Includes text + file
+           submitBtn.disabled = true;
+           try {
+             const response = await fetch(`/api/books/${id}`, {
+               method: "PUT",
+               body: formData,
+               credentials: "include", // Keep session cookies
+             });
+
+             const result = await response.json();
+
+             if (result.state === "1") {
+               alert("Book saved successfully!");
+               window.location.href = "/library";
+             } else {
+               alert("Save failed: " + result.msg);
+             }
+           } catch (error) {
+             console.error("Submit error:", error);
+             alert("Something went wrong.");
+           }finally {
+             submitBtn.disabled = false;
+           }
+         });
     </script>
   </body>
 </html>

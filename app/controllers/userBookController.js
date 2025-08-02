@@ -1,4 +1,22 @@
+/**
+ * @file userBookController.js
+ * @description
+ * Controller layer for managing user's reading list in the Express application.
+ * Provides endpoints to get the user's reading list, add books to it, and remove books from it.
+ *
+ * Responsibilities:
+ * - Validate session and user authentication before performing actions.
+ * - Handle input validation and error handling with appropriate HTTP status codes.
+ * - Interact with the userBookService layer for database operations.
+ * - Log relevant debugging and session info to trace requests and errors.
+ *
+ * Response structure:
+ * - JSON responses contain 'state' (1 for success, 0 for failure), descriptive 'msg',
+ *   and 'data' where applicable, such as the reading list array or operation results.
+ */
+
 const userBookService = require("../services/userBookService.js");
+
 const userBookController = {
   async getUserReadingList(req, res) {
     console.log("====================================");
@@ -40,7 +58,10 @@ const userBookController = {
     const { user_id, book_id } = req.body;
 
     if (!user_id || !book_id) {
-      return res.status(400).json({ message: "no user_id or book_id" });
+      return res.status(400).json({
+        state: "0",
+        msg: "Missing user_id or book_id",
+      });
     }
 
     try {
@@ -62,7 +83,7 @@ const userBookController = {
         });
       }
 
-      // 其他错误返回 500
+      // Other errors return 500
       res.status(500).json({
         state: "0",
         msg: "Internal Server Error",

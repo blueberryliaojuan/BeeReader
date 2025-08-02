@@ -1,29 +1,46 @@
+<!--
+  @file readingList.ejs
+  @description BeeReader - Reading List Page
+               Allows users to manage their personal reading list.
+               Includes search functionality, recommended books, and list manipulation features.
+  @created 2025-06-09
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
+    <!-- App Stylesheets -->
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/readingList.css" />
+    <!-- FontAwesome Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <title><%= title %></title>
   </head>
+
   <body>
+    <!-- ================= Header ================= -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="" />
+      <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
+
+    <!-- ================= Layout Structure ================= -->
     <main>
+      <!-- ===== Sidebar Navigation ===== -->
       <div class="sidebar">
         <div class="section">
           <a href="/library" class="menu-item">
+            <!-- Library Icon -->
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +57,9 @@
             </svg>
             <span class="ml-2">Library</span>
           </a>
+
           <a href="/readingList" class="menu-item active">
+            <!-- Reading List Icon -->
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -57,24 +76,21 @@
             </svg>
             <span class="ml-2">Reading List</span>
           </a>
-          <!-- <a href="#" class="menu-item">
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9.75 3a3 3 0 012.122.879l7.25 7.25a3 3 0 010 4.242l-6.25 6.25a3 3 0 01-4.242 0l-7.25-7.25A3 3 0 013 9.75V6a3 3 0 013-3h3.75z"
-              />
+
+          <!-- Future Feature: Settings -->
+          <!--
+          <a href="#" class="menu-item">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9.75 3a3 3 0 012.122.879l7.25 7.25a3 3 0 010 4.242l-6.25 6.25a3 3 0 01-4.242 0l-7.25-7.25A3 3 0 013 9.75V6a3 3 0 013-3h3.75z" />
             </svg>
             <span class="ml-2">Settings</span>
-          </a> -->
+          </a>
+          -->
+
           <a href="#" class="menu-item">
+            <!-- Account Icon -->
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +110,9 @@
         </div>
       </div>
 
+      <!-- ===== Main Content ===== -->
       <div class="main-content">
-        <!-- user -->
+        <!-- ==== User Info Bar ==== -->
         <div class="user-info">
           <img
             src="<%= profilePicture %>"
@@ -105,10 +122,11 @@
           <span class="welcome-message">Welcome, <%= userName %></span>
         </div>
 
-        <!-- bookshelf -->
+        <!-- ==== Bookshelf Area ==== -->
         <div class="bookshelf">
           <h1 class="category">My Reading List</h1>
-          <!-- search -->
+
+          <!-- === Search Form === -->
           <form class="search-form" id="searchForm">
             <input
               type="text"
@@ -117,6 +135,7 @@
               id="searchInput"
             />
             <button type="button" id="searchBtn" class="btn btn-search">
+              <!-- Search Icon -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="icon"
@@ -135,13 +154,15 @@
               </svg>
             </button>
           </form>
-          <!-- library -->
+
+          <!-- === Recommended Books Carousel === -->
           <div class="horizontal-scroll-section">
             <h2 class="section-title">Recommended Books</h2>
             <div class="book-scroll-container">
               <% libraryBooks.forEach(book => { %>
               <div class="book-card" data-book-id="<%= book.id %>">
                 <button class="add-btn" title="Add to Reading List">
+                  <!-- Add Icon -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon"
@@ -167,6 +188,7 @@
             </div>
           </div>
 
+          <!-- === User's Reading List === -->
           <h2 class="section-title">My Reading List</h2>
           <div class="bookShelf" id="readingListContainer">
             <% if (readingList.length === 0) { %>
@@ -178,6 +200,7 @@
             <div class="reading-list-container">
               <% readingList.forEach(book => { %>
               <div class="reading-card" data-book-id="<%= book.id %>">
+                <!-- Remove from list button -->
                 <button class="remove-btn" title="Remove from Reading List">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -200,6 +223,7 @@
                 <div class="reading-info">
                   <h3><%= book.title %></h3>
                   <p class="author"><%= book.author %></p>
+                  <!-- Remove icon again (optional duplicate for design) -->
                   <button class="remove-btn" title="Remove from Reading List">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -227,9 +251,12 @@
         </div>
       </div>
     </main>
+
+    <!-- ================= Scripts ================= -->
+    <script>
+      // User ID for client-side logic
+      window.userId = "<%= userId %>";
+    </script>
+    <script src="/js/readingList.js"></script>
   </body>
-  <script>
-    window.userId = "<%= userId %>";
-  </script>
-  <script src="/js/readingList.js"></script>
 </html>

@@ -1,3 +1,23 @@
+/**
+ * @file bookController.js
+ * @description
+ * Controller layer for handling book-related HTTP requests in the Express application.
+ * Implements CRUD operations (Create, Read, Update, Delete) and search functionality
+ * by interfacing with the bookService layer. Handles request validation, response formatting,
+ * error handling, and logs important debugging information.
+ *
+ * Features:
+ * - Create a new book with optional cover image upload
+ * - Retrieve all books or a specific book by ID (supports both query and URL parameters)
+ * - Search books by keyword (title or author)
+ * - Update existing book data, including optional cover image update
+ * - Soft-delete books by marking as deleted (no physical deletion)
+ *
+ * Response Structure:
+ * - JSON format with 'state' (1 for success, 0 for failure),
+ *   descriptive 'msg', and 'data' containing query results or created records.
+ */
+
 const bookService = require("../services/bookService");
 const bookController = {
   //postman:body-urlencoded
@@ -7,6 +27,7 @@ const bookController = {
     console.log("req.body", req.body);
     console.log("req.file:", req.file);
     console.log("====================================");
+
     try {
       // multer.single("cover") saved file in public/images，and created req.file.filename
       const image_url = req.file ? `/images/${req.file.filename}` : null;
@@ -16,12 +37,14 @@ const bookController = {
         image_url,
       };
       const results = await bookService.createBook(data);
+      // Respond with success status and newly created book data
       res.status(201).json({
         state: "1",
         msg: "Create book successful",
         data: results,
       });
     } catch (err) {
+      // Log error and respond with 500 status and error message
       console.error("Create book failed:", err);
       res.status(500).json({
         state: "0",
@@ -30,6 +53,7 @@ const bookController = {
       });
     }
   },
+
   async getAllBooks(req, res) {
     console.log("====================================");
     console.log("bookController-getAllBooks");
@@ -44,12 +68,14 @@ const bookController = {
     }
     try {
       const results = await bookService.getAllBooks();
+      // Send successful JSON response with list of books
       res.status(200).json({
         state: "1",
         msg: "Query successful",
         data: results, // 'results' contains the query results as a JavaScript object/array
       });
     } catch (err) {
+      // Log error and send failure JSON response
       console.error("Query failed:", err);
       // 'res' is the Express response object
       // .json Convert JavaScript object to JSON and send it as the HTTP response
@@ -61,6 +87,10 @@ const bookController = {
     }
   },
 
+  /**
+   * Search books by keyword, or forward to getBookById if query id is provided.
+   * Logs session info for debugging.
+   */
   async searchBook(req, res) {
     console.log("====================================");
     console.log("bookController-searchBook");
@@ -92,15 +122,18 @@ const bookController = {
     }
   },
 
-  //postman: /books/1393b346-e24e-434a-a23f-805258fbe374
-
   //Query Parameters (req.query)
   //In {{base_url}}/books/?id=123, id is part of the query string.
-  //This matches the /books route and triggers getAllBooks because you're using query parameters, not URL parameters.
+  //This matches the /books route and triggers getAllBooks because using query parameters, not URL parameters.
 
   //URL Parameters (req.params)
   //In {{base_url}}/books/123, 123 is part of the path,
   //the route /books/:id will match, triggering getBookById.
+
+  /**
+   * Get a single book by id from URL param.
+   * Returns the book data if found, else null.
+   */
   async getBookById(req, res) {
     console.log("====================================");
     console.log("bookController-getBookById");

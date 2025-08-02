@@ -2,7 +2,7 @@
   @file addNewBook.html
   @description BeeReader - Page for adding new books to the library.
                Users can enter book details and upload a cover image.
-  @created 2025-07-31
+  @created 2025-06-09
   @author Juan Liao
   @lastModified 2025-07-31 by Juan Liao - Initial version with async JS submit
 -->
@@ -19,14 +19,14 @@
     <link rel="stylesheet" href="/css/addNewBook.css" />
 
     <!-- Dynamic title using templating engine like EJS -->
-    <title><%= title %></title>
+    <title><%= title || "Add New Book - BeeReader" %></title>
   </head>
 
   <body>
     <!-- Site Header with logo and branding -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="BeeReader Logo" />
+      <img src="/images/logo.png" alt="BeeReader logo with a bee" />
     </header>
 
     <main class="main-content">
@@ -54,7 +54,7 @@
         <!-- Publication year -->
         <div>
           <label for="year">Year:</label>
-          <input type="text" name="year" id="year" required />
+          <input type="number" name="year" id="year" required />
         </div>
 
         <!-- Book cover image upload -->
@@ -84,38 +84,44 @@
       /**
        * @description Intercepts the form submission and sends the form data
        * asynchronously via `fetch` to avoid page reload and improve UX.
+       * Prevent double submission by disabling the button during async operation
        */
-      document
-        .getElementById("book-form")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault(); // prevent default form submission behavior
+      const form = document.getElementById("book-form");
+      const button = form.querySelector("button[type='submit']");
 
-          const form = event.target;
-          const formData = new FormData(form); // collect form data including file
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // prevent default form submission behavior
 
-          try {
-            const response = await fetch(form.action, {
-              method: form.method,
-              body: formData,
-              credentials: "include", // send cookies (if needed for session/auth)
-            });
+        const form = event.target;
+        const formData = new FormData(form); // collect form data including file
+        button.disabled = true;
+        button.textContent = "Saving...";
+        try {
+          const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            credentials: "include", // send cookies (if needed for session/auth)
+          });
 
-            const result = await response.json();
+          const result = await response.json();
 
-            // Server-side success case
-            if (result.state === "1") {
-              alert("Book added successfully!");
-              window.location.href = "/library"; // navigate back to library
-            } else {
-              // Server-side validation or other failure
-              alert(`Failed to add book: ${result.msg}`);
-            }
-          } catch (error) {
-            // Network or unexpected error
-            console.error("Error adding book:", error);
-            alert("An unexpected error occurred.");
+          // Server-side success case
+          if (result.state === "1") {
+            alert("Book added successfully!");
+            window.location.href = "/library"; // navigate back to library
+          } else {
+            // Server-side validation or other failure
+            alert(`Failed to add book: ${result.msg}`);
           }
-        });
+        } catch (error) {
+          // Network or unexpected error
+          console.error("Error adding book:", error);
+          alert("An unexpected error occurred.");
+        } finally {
+          button.disabled = false;
+          button.textContent = "Save";
+        }
+      });
     </script>
   </body>
 </html>

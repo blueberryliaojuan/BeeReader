@@ -6,10 +6,11 @@
 
 ---
 
-## 2.Repository
+## 2. Repository
 
-The complete source code for BeeReader is available on GitHub:  
-[https://github.com/blueberryliaojuan/BeeReader](https://github.com/blueberryliaojuan/BeeReader)
+The complete source code for **BeeReader** is available on GitHub:
+
+🔗 [https://github.com/blueberryliaojuan/BeeReader](https://github.com/blueberryliaojuan/BeeReader)
 
 ## 3.Running the Application
 
@@ -69,7 +70,7 @@ The complete source code for BeeReader is available on GitHub:
 
 ## 5. Database Structure
 
--please refer to DATABASE.md and SQL.md
+- please refer to DATABASE.md and SQL.md
 
 ## 6. Project Structure
 

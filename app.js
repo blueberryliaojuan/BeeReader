@@ -50,7 +50,7 @@ app.use(
     saveUninitialized: false, // Do not save session until something is stored
     resave: false, // Avoid resaving unchanged sessions
     cookie: {
-      maxAge: 1000 * 60 * 60 * 2, // Session valid for 2 hours
+      maxAge: 1000 * 60 * 3, // Session valid for 30 mins
       httpOnly: true, // Prevent client-side JS from accessing the cookie
       secure: false, // Set to true if using HTTPS
       sameSite: "lax", // Prevent CSRF while allowing basic navigation
@@ -79,7 +79,7 @@ app.use(cookieParser()); // Parses cookies into req.cookies
 const logger = require("morgan");
 app.use(logger("dev")); // Logs HTTP requests to the console
 
-const createError = require("http-errors"); // Error generation utility
+// const createError = require("http-errors"); // Error generation utility
 
 /* ============================================================================
    Routing

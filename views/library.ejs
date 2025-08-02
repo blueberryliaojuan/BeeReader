@@ -1,8 +1,19 @@
+<!--
+  @file library.ejs
+  @description BeeReader - Library Page
+               Displays all books added by the user, with options to edit or delete.
+               Users can also add new books via a dedicated interface.
+  @created 2025-06-09
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Responsive configuration for various screen sizes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts & Styles -->
     <link
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
@@ -13,17 +24,24 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+
     <title><%= title %></title>
   </head>
+
   <body>
+    <!-- ===== Site Header ===== -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="" />
+      <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
+
+    <!-- ===== Main Layout ===== -->
     <main>
-      <div class="sidebar">
+      <!-- ===== Sidebar Navigation ===== -->
+      <nav class="sidebar">
         <div class="section">
-          <a href="/library" class="menu-item active">
+          <!-- Active: Library -->
+          <a href="/library" class="menu-item active" title="Library">
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +58,9 @@
             </svg>
             <span class="ml-2">Library</span>
           </a>
-          <a href="/readingList" class="menu-item">
+
+          <!-- Reading List -->
+          <a href="/readingList" class="menu-item" title="Reading List">
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -57,24 +77,9 @@
             </svg>
             <span class="ml-2">Reading List</span>
           </a>
-          <!-- <a href="#" class="menu-item">
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9.75 3a3 3 0 012.122.879l7.25 7.25a3 3 0 010 4.242l-6.25 6.25a3 3 0 01-4.242 0l-7.25-7.25A3 3 0 013 9.75V6a3 3 0 013-3h3.75z"
-              />
-            </svg>
-            <span class="ml-2">Settings</span>
-          </a> -->
-          <a href="#" class="menu-item">
+
+          <!-- Account (Placeholder) -->
+          <a href="#" class="menu-item" title="Account">
             <svg
               class="icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +97,11 @@
             <span class="ml-2">Account</span>
           </a>
         </div>
-      </div>
+      </nav>
+
+      <!-- ===== Main Content Area ===== -->
       <div class="main-content">
+        <!-- ===== User Information Section ===== -->
         <div class="user-info">
           <img
             src="<%= profilePicture %>"
@@ -102,43 +110,72 @@
           />
           <span class="welcome-message">Welcome, <%= userName %></span>
         </div>
+
+        <!-- ===== Library Section ===== -->
         <div class="library">
           <h1 class="category">My Library</h1>
 
+          <!-- Add New Book Button -->
           <div class="add">
-            <button class="text-btn add" id="new-btn" title="Add New Book">
+            <button
+              type="button"
+              class="text-btn add"
+              id="new-btn"
+              title="Add New Book"
+            >
               <i class="fas fa-plus"></i> Add New
             </button>
           </div>
+
+          <!-- Book List Wrapper -->
           <div class="wrapper">
+            <% if (data.length === 0) { %>
+            <p>No books found.</p>
+            <% } else { %>
             <ul id="book-list">
-              <% if (data.length === 0) { %>
-              <p>No books found.</p>
-              <% } else { %> <% data.forEach(function(book) { %>
+              <% data.forEach(function(book) { %>
               <li data-id="<%= book.id %>">
                 <h3><%= book.title %></h3>
                 <p class="author"><%= book.author %></p>
+
+                <!-- Book Cover -->
                 <% if (book.image_url) { %>
-                <img src="<%= book.image_url %>" alt="<%= book.title %>" />
+                <img
+                  src="<%= book.image_url %>"
+                  alt="<%= book.title %>"
+                  onerror="this.src='/images/default-cover.png'"
+                />
                 <% } else { %>
                 <p>No image available</p>
                 <% } %>
-                <!-- buttons -->
+
+                <!-- Action Buttons -->
                 <div class="action-buttons">
-                  <button class="action-button edit-btn mr2" title="Edit">
+                  <button
+                    type="button"
+                    class="action-button edit-btn mr2"
+                    title="Edit"
+                  >
                     <i class="fas fa-edit"></i> Edit
                   </button>
-                  <button class="action-button delete-btn" title="Delete">
+                  <button
+                    type="button"
+                    class="action-button delete-btn"
+                    title="Delete"
+                  >
                     <i class="fas fa-trash-alt"></i> Delete
                   </button>
                 </div>
               </li>
-              <% }); %> <% } %>
+              <% }); %>
             </ul>
+            <% } %>
           </div>
         </div>
       </div>
     </main>
+
+    <!-- ===== Page Script ===== -->
+    <script src="/js/library.js"></script>
   </body>
-  <script src="/js/library.js"></script>
 </html>

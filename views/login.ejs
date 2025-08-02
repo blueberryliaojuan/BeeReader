@@ -1,25 +1,42 @@
+<!--
+  @file login.ejs
+  @description BeeReader - Login & Signup Page
+               Provides user authentication forms with animated transitions.
+               Users can sign in or register for an account.
+  @created 2025-06-09
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Dynamic page title with fallback -->
     <title><%= title || 'Login / Signup Page' %></title>
+
+    <!-- Normalize CSS for consistent rendering across browsers -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
     />
+
+    <!-- Global and page-specific styles -->
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/login.css" />
   </head>
   <body>
+    <!-- ===== Site Header with Branding ===== -->
     <header>
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="" />
+      <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
+
+    <!-- ===== Auth Form Container with Overlay Effect ===== -->
     <div class="container right-panel-active">
-      <!-- Sign In -->
+      <!-- ===== Sign In Form Section ===== -->
       <div class="container__form container--signin">
         <form class="form" id="form2">
           <h2 class="form__title">Sign In</h2>
+
+          <!-- Email input for login -->
           <input
             type="email"
             name="email"
@@ -28,6 +45,8 @@
             required
             id="signInEmail"
           />
+
+          <!-- Password input for login -->
           <input
             type="password"
             name="password"
@@ -36,14 +55,21 @@
             required
             id="signInPassword"
           />
+
+          <!-- Forgot password link (not functional yet) -->
           <a href="#" class="link">Forgot your password?</a>
+
+          <!-- Submit button for sign in -->
           <button class="btn">Sign In</button>
         </form>
       </div>
-      <!-- Sign Up -->
+
+      <!-- ===== Sign Up Form Section ===== -->
       <div class="container__form container--signup">
         <form class="form" id="form1">
           <h2 class="form__title">Sign Up</h2>
+
+          <!-- Email input for registration -->
           <input
             type="email"
             name="email"
@@ -52,7 +78,10 @@
             required
             id="email"
           />
+          <!-- Display email validation error -->
           <p id="email-error" class="error-message"></p>
+
+          <!-- Username input for registration -->
           <input
             type="text"
             name="username"
@@ -61,7 +90,10 @@
             required
             id="username"
           />
+          <!-- Display username validation error -->
           <p id="username-error" class="error-message"></p>
+
+          <!-- Password input for registration -->
           <input
             type="password"
             name="password"
@@ -70,7 +102,10 @@
             required
             id="password"
           />
+          <!-- Display password validation error -->
           <p id="password-error" class="error-message" style="height: 1em"></p>
+
+          <!-- Confirm password input -->
           <input
             type="password"
             name="conform-password"
@@ -79,21 +114,27 @@
             required
             id="conform-password"
           />
+          <!-- Display confirm password error -->
           <p
             id="conform-password-error"
             class="error-message"
             style="height: 1em"
           ></p>
+
+          <!-- Submit button for sign up -->
           <button class="btn">Sign Up</button>
         </form>
       </div>
 
-      <!-- Overlay -->
+      <!-- ===== Overlay Panels for Switching Forms ===== -->
       <div class="container__overlay">
         <div class="overlay">
+          <!-- Left overlay panel: switches to sign in -->
           <div class="overlay__panel overlay--left">
             <button class="btn" id="signIn" type="submit">Sign In</button>
           </div>
+
+          <!-- Right overlay panel: switches to sign up -->
           <div class="overlay__panel overlay--right">
             <button class="btn" id="signUp" type="submit">Sign Up</button>
           </div>
@@ -101,6 +142,7 @@
       </div>
     </div>
 
+    <!-- ===== Page Script ===== -->
     <script src="/js/login.js"></script>
   </body>
 </html>

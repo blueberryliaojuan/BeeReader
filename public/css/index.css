@@ -1,3 +1,12 @@
+/*
+  @file index.css
+  @description BeeReader - Global Layout & Theme Styles
+               Contains variables, layout, sidebar, header, buttons, and responsive rules
+               for consistent styling across the BeeReader web application.
+  @created 2025-06-09
+*/
+
+/* ===== Root Variables & Global Styles ===== */
 :root {
   --primary: #333333;
   --yellow: #f7d755;
@@ -11,7 +20,7 @@
   box-sizing: border-box;
 }
 
-/* header */
+/* ===== Header Styling ===== */
 .heading {
   width: 100vw;
   height: 140px;
@@ -19,7 +28,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right top;
-  background-color: #333333;
+  background-color: var(--primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,26 +37,29 @@
   left: 0;
   z-index: 10;
 }
+
 .heading .site-name {
   font-family: "Pacifico", cursive;
   font-size: 2.5rem;
   line-height: 2.5rem;
-  color: #f7d755;
+  color: var(--yellow);
   text-align: center;
 }
+
 .heading img {
   height: 45px;
   width: auto;
   margin-left: 10px;
 }
 
-/* main */
+/* ===== Main Layout ===== */
 main {
   height: calc(100% - 140px);
   width: 100%;
   margin-top: 140px;
   display: flex;
 }
+
 .main-content {
   width: calc(100% - 200px);
   padding: 40px;
@@ -55,7 +67,7 @@ main {
   overflow-y: auto;
 }
 
-/* side bar */
+/* ===== Sidebar Navigation ===== */
 .sidebar {
   width: 200px;
   height: 100%;
@@ -124,13 +136,14 @@ main {
   margin-left: 8px;
 }
 
-/* welcome user */
+/* ===== User Info Panel ===== */
 .user-info {
   text-align: right;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
 .user-avatar {
   width: 40px;
   height: 40px;
@@ -139,20 +152,19 @@ main {
   border: 2px solid var(--yellow);
   margin-right: 10px;
 }
+
 .welcome-message {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--primary);
 }
 
-/* button */
+/* ===== Buttons ===== */
 .action-button {
   background: var(--primary);
   color: var(--yellow);
   border: none;
-  /* padding: 10px 20px; */
   border-radius: 5px;
-  /* font-size: 18px; */
   cursor: pointer;
   margin-top: 10px;
   font-size: 0.8rem;
@@ -167,8 +179,8 @@ main {
 }
 
 .text-btn {
-  background: #333333;
-  color: #f7d755;
+  background: var(--primary);
+  color: var(--yellow);
   margin: 20px;
   border-radius: 5px;
   font-size: 0.8rem;
@@ -179,10 +191,11 @@ main {
 }
 
 .text-btn:hover {
-  background: #f7d755;
-  color: #333333;
+  background: var(--yellow);
+  color: var(--primary);
 }
 
+/* ===== Responsive Breakpoints ===== */
 @media (max-width: 600px) {
   h1 {
     font-size: 1.5em;

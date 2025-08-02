@@ -1,3 +1,12 @@
+/*
+  @file login.css
+  @description BeeReader - Login / Signup Styling
+               Styles for animated sign in / sign up interface with overlay panel.
+               Includes transitions, responsive form layout, and brand theming.
+  @created 2025-06-09
+*/
+
+/* ========== Global Layout ========== */
 body {
   align-items: center;
   display: grid;
@@ -6,6 +15,8 @@ body {
   position: relative;
   padding-top: 70px;
 }
+
+/* Background overlay for body */
 body::before {
   content: "";
   position: fixed;
@@ -17,6 +28,8 @@ body::before {
   opacity: 0.7;
   z-index: -1;
 }
+
+/* ========== Header Branding ========== */
 header {
   position: absolute;
   top: 180px;
@@ -30,15 +43,16 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 header img {
   height: 45px;
   width: auto;
   margin-left: 10px;
 }
 
+/* ========== Form Layout ========== */
 .form__title {
-  margin: 0;
-  margin-bottom: 1.25rem;
+  margin: 0 0 1.25rem;
   color: var(--primary);
 }
 
@@ -49,6 +63,7 @@ header img {
   text-decoration: none;
 }
 
+/* Container for sign in / sign up */
 .container {
   background-color: var(--primary);
   border-radius: var(--button-radius);
@@ -61,6 +76,7 @@ header img {
   width: 100%;
 }
 
+/* ========== Form Containers ========== */
 .container__form {
   height: 100%;
   position: absolute;
@@ -74,6 +90,7 @@ header img {
   z-index: 2;
 }
 
+/* Slide animation when switching panels */
 .container.right-panel-active .container--signin {
   transform: translateX(100%);
 }
@@ -86,41 +103,38 @@ header img {
 }
 
 .container.right-panel-active .container--signup {
-  -webkit-animation: show 0.6s;
   animation: show 0.6s;
   opacity: 1;
   transform: translateX(100%);
   z-index: 5;
 }
 
+/* ========== Overlay Container ========== */
 .container__overlay {
   height: 100%;
-  left: 50%;
-  overflow: hidden;
+  width: 50%;
   position: absolute;
   top: 0;
-  transition: transform 0.6s ease-in-out;
-  width: 50%;
+  left: 50%;
   z-index: 100;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
 }
 
 .container.right-panel-active .container__overlay {
   transform: translateX(-100%);
 }
 
+/* ========== Overlay Panels ========== */
 .overlay {
+  background: url("/images/bg.jpeg") center/cover no-repeat fixed;
   background-color: var(--orange);
-  background: url("/images/bg.jpeg");
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 200%;
   height: 100%;
   left: -100%;
   position: relative;
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
-  width: 200%;
 }
 
 .container.right-panel-active .overlay {
@@ -131,14 +145,13 @@ header img {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: center;
   position: absolute;
-  text-align: center;
   top: 0;
-  transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
   width: 50%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s ease-in-out;
 }
 
 .overlay--left {
@@ -158,11 +171,12 @@ header img {
   transform: translateX(20%);
 }
 
+/* ========== Buttons ========== */
 .btn {
   background-color: var(--yellow);
   background-image: linear-gradient(90deg, var(--yellow) 0%, var(--orange) 74%);
-  border-radius: 20px;
   border: 1px solid var(--yellow);
+  border-radius: 20px;
   color: var(--primary);
   cursor: pointer;
   font-size: 0.8rem;
@@ -185,6 +199,7 @@ header img {
   outline: none;
 }
 
+/* ========== Form Styling ========== */
 .form {
   background-color: var(--yellow);
   display: flex;
@@ -199,32 +214,18 @@ header img {
 .input {
   background-color: #fff;
   border: none;
-  padding: 0.9rem 0.9rem;
+  padding: 0.9rem;
   margin: 0.5rem 0;
   width: 100%;
 }
 
-@-webkit-keyframes show {
-  0%,
-  49.99% {
-    opacity: 0;
-    z-index: 1;
-  }
-
-  50%,
-  100% {
-    opacity: 1;
-    z-index: 5;
-  }
-}
-
+/* ========== Animations ========== */
 @keyframes show {
   0%,
   49.99% {
     opacity: 0;
     z-index: 1;
   }
-
   50%,
   100% {
     opacity: 1;
@@ -232,13 +233,26 @@ header img {
   }
 }
 
+/* Legacy Webkit Support */
+@-webkit-keyframes show {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* ========== Error Messages ========== */
 .error-message {
-  /* min-height: 0.5em; */
   height: 0.5em;
   line-height: 0.5em;
   color: var(--orange);
   font-size: 14px;
   margin-top: 4px;
-  padding-left: 0;
   align-self: flex-start;
 }

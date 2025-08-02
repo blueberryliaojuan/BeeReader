@@ -1,6 +1,16 @@
+/*
+  @file addNewBook.css
+  @description Styles for the Book Form page in BeeReader.
+               Includes layout for the form container, inputs, labels,
+               and responsive adjustments for smaller screens.
+  @created 2025-06-09
+*/
+
+/* ========== Global Reset & Layout ========== */
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -11,6 +21,7 @@ body {
   width: 100vw;
 }
 
+/* ========== Main Content Container ========== */
 .main-content {
   display: flex;
   flex-direction: column;
@@ -18,7 +29,8 @@ body {
   align-items: center;
   width: 100%;
 }
-/* Page title */
+
+/* ========== Page Title ========== */
 h1 {
   margin-top: 40px;
   line-height: 80px;
@@ -26,7 +38,7 @@ h1 {
   margin: 20px 0;
 }
 
-/* Form container */
+/* ========== Book Form Container ========== */
 #book-form {
   width: 90%;
   max-width: 500px;
@@ -38,14 +50,14 @@ h1 {
   border-radius: 8px;
 }
 
-/* Label styling */
+/* ========== Form Labels ========== */
 #book-form label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-/* Input, textarea */
+/* ========== Form Inputs & Textarea ========== */
 #book-form input[type="text"],
 #book-form input[type="number"],
 #book-form input[type="file"],
@@ -57,13 +69,13 @@ h1 {
   font-size: 1rem;
 }
 
-/* Textarea specific */
+/* ========== Textarea Specific Styling ========== */
 #book-form textarea {
   resize: vertical;
   min-height: 80px;
 }
 
-/* Submit button */
+/* ========== Submit Button ========== */
 #book-form button[type="submit"] {
   background: #f7d755;
   color: #333333;
@@ -75,12 +87,13 @@ h1 {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
+
 #book-form button[type="submit"]:hover {
   background: #333333;
   color: #f7d755;
 }
 
-/* Responsive tweaks */
+/* ========== Responsive Styles ========== */
 @media (max-width: 600px) {
   #book-form {
     padding: 15px;
