@@ -34,4 +34,6 @@ userApiRouter.post(
   userController.checkEmailAvailability
 );
 
+userApiRouter.get("/logout", userController.logOut);
+
 module.exports = userApiRouter;

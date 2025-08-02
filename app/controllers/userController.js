@@ -148,6 +148,18 @@ const userController = {
       });
     }
   },
+
+  logOut(req, res) {
+    console.log("log out request ");
+    console.log("req.session", req.session);
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Logout failed:", err);
+        return res.status(500).json({ message: "Logout failed" });
+      }
+      res.status(200).json({ message: "Logout successful" });
+    });
+  },
 };
 
 module.exports = userController;
