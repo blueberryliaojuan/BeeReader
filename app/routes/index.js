@@ -12,6 +12,7 @@ const libraryRouter = require("./pages/libraryRouter");
 const readingListRouter = require("./pages/readingListRouter");
 const addNewBookRouter = require("./pages/addNewBookRouter");
 const editBookRouter = require("./pages/editBookRouter");
+const accountRouter = require("./pages/accountRouter");
 
 // -------------------- Import API Routes --------------------
 const userApiRouter = require("./api/userApiRouter");
@@ -34,6 +35,7 @@ module.exports = (app) => {
   app.use("/library", ensureAuthenticated, libraryRouter);
   app.use("/addNewBook", ensureAuthenticated, addNewBookRouter);
   app.use("/editBook", ensureAuthenticated, editBookRouter);
+  app.use("/account", ensureAuthenticated, accountRouter);
 
   // -------------------- Mount API Routes --------------------
   // Serve backend API endpoints (JSON response)

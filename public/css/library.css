@@ -31,16 +31,6 @@ body {
   flex: 1;
 }
 
-/* ========== Titles ========== */
-.category {
-  width: 100%;
-  font-size: 28px;
-  font-weight: 800;
-  text-align: center;
-  color: #333333;
-  position: relative;
-}
-
 /* ========== Wrapper for center alignment ========== */
 .wrapper {
   width: 100%;

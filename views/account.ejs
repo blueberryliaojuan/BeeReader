@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fonts & Styles -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/account.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!-- ===== Site Header ===== -->
+    <header class="heading">
+      <div class="site-name">BeeReader</div>
+      <img src="/images/logo.png" alt="BeeReader Logo" />
+    </header>
+    <!-- ===== Main Layout ===== -->
+    <main>
+      <!-- ===== Sidebar Navigation ===== -->
+      <nav class="sidebar">
+        <div class="section">
+          <!-- Active: Library -->
+          <a href="/library" class="menu-item" title="Library">
+            <svg
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 7h18M3 12h18M3 17h18"
+              />
+            </svg>
+            <span class="ml-2">Library</span>
+          </a>
+
+          <!-- Reading List -->
+          <a href="/readingList" class="menu-item" title="Reading List">
+            <svg
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 19.5A2.5 2.5 0 006.5 22H18a2 2 0 002-2V5a1 1 0 00-1-1H6.5A2.5 2.5 0 004 6.5v13zM8 8h8M8 12h8"
+              />
+            </svg>
+            <span class="ml-2">Reading List</span>
+          </a>
+
+          <!-- Account  -->
+          <a href="/account" class="menu-item active" title="Account">
+            <svg
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <span class="ml-2">Account</span>
+          </a>
+        </div>
+      </nav>
+      <!-- ===== Main Content Area ===== -->
+      <div class="main-content">
+        <div class="content-case">
+          <div class="avatar-section container">
+            <img
+              src="<%= user && user.profile_picture ? user.profile_picture : '/default-avatar.png' %>"
+              alt="User Avatar"
+            />
+            <div><button class="text-btn">Log Out</button></div>
+          </div>
+
+          <div class="form-section container">
+            <form>
+              <h2 class="form__title">Account Management</h2>
+
+              <div class="form-item">
+                <label for="name">User Name</label>
+                <input
+                  class="input"
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="Your full name"
+                  value="<%= user?.username ? user.username : '' %>"
+                />
+              </div>
+              <div class="form-item">
+                <label for="profile_picture">Change Avatar</label>
+                <input
+                  class="input"
+                  type="file"
+                  id="profile_picture"
+                  name="profile_picture"
+                  accept="image/*"
+                />
+              </div>
+              <div class="form-item">
+                <label for="email">Email</label>
+                <input
+                  class="input"
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value="<%= user?.email ? user.email : '' %>"
+                />
+              </div>
+              <div class="form-item">
+                <label for="phone">Phone</label>
+                <input
+                  class="input"
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  value="<%= user ? user.phone : '' %>"
+                />
+              </div>
+              <div class="form-item">
+                <label for="address">Address</label>
+                <textarea
+                  class="input"
+                  id="address"
+                  name="address"
+                  placeholder="Your address"
+                >
+<%= user ? user.address : '' %></textarea
+                >
+              </div>
+
+              <button class="text-btn" type="submit">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

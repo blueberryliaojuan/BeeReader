@@ -22,20 +22,12 @@ body {
   width: 100vw;
 }
 
-/* ========== Category Title ========== */
-.category {
-  width: 100%;
-  font-size: 1.75em;
-  font-weight: 800;
-  text-align: center;
-  color: var(--primary);
-  position: relative;
-}
-
 /* ========== Search Form ========== */
 .search-form {
-  float: left;
-  height: 3.125em;
+  /* float: left; */
+  height: 2rem;
+  margin-top: 2rem;
+  /* margin-bottom: 2rem; */
   position: relative;
 }
 
@@ -84,7 +76,7 @@ body {
 
 /* ========== Recommended Books Section ========== */
 .horizontal-scroll-section {
-  margin: 6em auto 2em;
+  margin: 2em auto 2em;
   max-width: 100%;
 }
 
