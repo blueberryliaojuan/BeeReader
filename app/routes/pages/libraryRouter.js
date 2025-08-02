@@ -9,7 +9,7 @@ libraryRouter.get("/", async (req, res) => {
   try {
     const bookRes = await axios.get("http://localhost:3000/api/books", {
       headers: {
-        cookie: req.headers.cookie, // 手动附上浏览器发来的 cookie
+        cookie: req.headers.cookie,
       },
     });
 

@@ -1,66 +1,101 @@
+/**
+ * @file server.js
+ * @description Main Express server for BeeReader web application.
+ *              Sets up view engine, middleware, session, routes, and launches the server.
+ * @author Juan Liao
+ * @created 2025-07-31
+ */
+
 const express = require("express");
 const path = require("path");
 const app = express();
 const PORT = 3000;
 
-const session = require("express-session");
-
-//view engin setup
-// Set the view engine to ejs
+/* ============================================================================
+   View Engine Configuration (EJS)
+============================================================================ */
+// Set EJS as the templating engine
 app.set("view engine", "ejs");
-// Set the views directory
+
+// Set the directory where view templates are stored
 app.set("views", path.join(__dirname, "views"));
 
-//  Redirect '/' to '/login'
-//res.redirect("/") must be before all static and use()
+/* ============================================================================
+   Basic Routing
+============================================================================ */
+// Redirect root URL to the login page
+// This route should be declared before any static file or middleware handling
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-// Enable CORS for all routes
+/* ============================================================================
+   CORS (Cross-Origin Resource Sharing)
+============================================================================ */
 const cors = require("cors");
 app.use(
   cors({
-    origin: "http://localhost:3000", // my front end
-    credentials: true, // allow cookie, this is important
+    origin: "http://localhost:3000", // Allow requests from frontend dev server
+    credentials: true, // Allow cookies/session to be sent cross-origin
   })
 );
 
+/* ============================================================================
+   Session Management
+============================================================================ */
+const session = require("express-session");
 app.use(
   session({
-    secret: "my-secret-key",
-    saveUninitialized: false, //do not save empty
-    resave: false, //if cookie is not set, then do not resave
+    secret: "my-secret-key", // Used to sign the session ID cookie
+    saveUninitialized: false, // Do not save session until something is stored
+    resave: false, // Avoid resaving unchanged sessions
     cookie: {
-      maxAge: 1000 * 60 * 60 * 2, // 2 hours,
-      httpOnly: true, // JavaScript not allowed to change cookie, security
-      secure: false, //if https, change to true
-      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 2, // Session valid for 2 hours
+      httpOnly: true, // Prevent client-side JS from accessing the cookie
+      secure: false, // Set to true if using HTTPS
+      sameSite: "lax", // Prevent CSRF while allowing basic navigation
     },
   })
 );
 
-// ******* Express Middlewares *******
-app.use(express.json()); // parse JSON data
-app.use(express.urlencoded({ extended: true })); // parse URL-encoded data
-app.use(express.static(path.join(__dirname, "public"))); // serve static files from the 'public' directory
+/* ============================================================================
+   Built-in Express Middleware
+============================================================================ */
+// Parse incoming JSON payloads
+app.use(express.json());
 
-// ******* Third Party Middlewares ******
+// Parse form data (application/x-www-form-urlencoded)
+app.use(express.urlencoded({ extended: true }));
 
-//parse cookies from http requests and put them in req.cookies
+// Serve static files from /public
+app.use(express.static(path.join(__dirname, "public")));
+
+/* ============================================================================
+   Other Third-Party Middleware
+============================================================================ */
 const cookieParser = require("cookie-parser");
-app.use(cookieParser()); // parse cookies
-//logging all requests
+app.use(cookieParser()); // Parses cookies into req.cookies
+
 const logger = require("morgan");
-app.use(logger("dev")); // logging middleware
-//handle errors
-const createError = require("http-errors");
+app.use(logger("dev")); // Logs HTTP requests to the console
 
-// ******* Routing *******
-// Import and set up routes
-require("./app/")(app);
+const createError = require("http-errors"); // Error generation utility
 
-// Start the server
+/* ============================================================================
+   Routing
+============================================================================ */
+// Load all routes (index.js under ./app/routes will handle routing setup)
+require("./app/routes/index.js")(app);
+
+/* ============================================================================
+   Server Startup
+============================================================================ */
+
+/**
+ * @function printBeeReader
+ * @description Prints an ASCII-style logo for BeeReader to the terminal.
+ *              For aesthetic branding on server launch.
+ */
 function printBeeReader() {
   const BeeReader = [
     "█████╗  ███████╗███████╗██████╗ ███████╗ █████╗ █████╗  ███████╗██████╗ ",
@@ -72,6 +107,8 @@ function printBeeReader() {
   ];
   BeeReader.forEach((line) => console.log(line));
 }
+
+// Launch the server on defined port
 app.listen(PORT, () => {
   printBeeReader();
   console.log("====================================");

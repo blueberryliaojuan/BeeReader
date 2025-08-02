@@ -1,117 +1,76 @@
-# BeeReader
+# BeeReader 📚🐝
 
-BeeReader is a responsive website designed for students to log and track the books they read. It helps users stay organized and monitor their reading progress effectively, offering a seamless way to maintain a reading log.
+## 1. Project Overview
 
----
-
-## Features
-
-### 1. Responsive Design
-
-The website is mobile-friendly and adapts to various screen sizes.
-
-### 2. Express for API and Server-Side Rendering
-
-- Express serves as both the API server and the framework for rendering server-side pages.
-- Running `npm run dev` starts the server, making the application accessible at [http://localhost:3000/home](http://localhost:3000/home).
-
-### 3. Improved Logging with Morgan
-
-- Morgan is integrated to enhance console logs in the Express server.
-- Custom log styles, including icons and ASCII art, make the logs more engaging and informative.
-
-### 4. MySQL Database with Connection Pooling
-
-- The application uses a MySQL database.
-- A connection pool efficiently handles incoming requests, ensuring scalability.
-- database: "BeeReader", user: "beeuser", password: "beeuser",
-
-### 5. EJS Templating Engine
-
-- EJS is used to render server-side pages dynamically.
-- The homepage fetches all book data using the `getAllBooks` API and renders it in EJS format.
-
-### 6. Soft Delete Mechanism
-
-- The Delete button sends a request to the delete API, updating the database to perform a soft delete.
-- The `isDeleted` column is set to `1`, and a timestamp is recorded in the `deletedAt` column.
-
-### 7. Adding New Books
-
-- The "Add a New Book" button redirects users to the `addNewBook` page.
-- Each new book is assigned a unique identifier using the UUID middleware, ensuring consistency and ease of management.
-
-### 8. File Uploads with Multer
-
-- Multer handles file uploads, with files stored in the `public/images` directory.
-- This functionality is optional.
-
-### 9. Passward security
-
--- Frontend - Submit the raw (plaintext) password directly to the server over HTTP
--- Backend - Use bcrypt.hash(password) to securely hash the password before storing it in the database during signup
--- Backend - Use bcrypt.compare(password, hashedPassword) to verify the submitted password against the stored hash during login.
-
-### 10
-
-Express-validator
+**BeeReader** is a website designed for students to log and track the books they read. It allows each student to register, log in securely, and manage their own reading records. The app is built with **Node.js** and **Express**, uses **MySQL** as the database, and renders views with **EJS** (server-side rendering).
 
 ---
 
-## Functionality Overview
-
-- **APIs**
-
-  - APIs for fetching, deleting (soft delete), and adding books are implemented and tested using Postman.
-  - APIs for fetching a book by ID or updating a book exist but lack corresponding front-end pages.
-
-- **Soft Delete**
-
-  - Records are not permanently removed. Instead, they are marked as deleted.
-
-- **File Uploads**
-  - File uploads enhance the system's ability to associate images with books.
-
----
-
-## Future Development
-
-If additional requirements arise in Assignment 2, I will expand the project by:
-
-- Developing new APIs.
-- Creating corresponding front-end pages for currently unsupported features like fetching a book by ID and updating books.
-
----
-
-## Repository
+## 2.Repository
 
 The complete source code for BeeReader is available on GitHub:  
 [https://github.com/blueberryliaojuan/BeeReader](https://github.com/blueberryliaojuan/BeeReader)
 
----
+## 3.Running the Application
 
-## Running the Application
+### Prerequisites
 
-First of all, we need to make sure the database is working!!!
+- **Node.js** installed on your machine
+- **MySQL** server running locally or accessible remotely
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/blueberryliaojuan/BeeReader.git
-   cd BeeReader
+### Steps
+
+1. **Create the database and user**
+
+   Open your MySQL client and execute the following SQL commands to create the database, user, and grant privileges:
+
+   ```sql
+   CREATE DATABASE IF NOT EXISTS beereader_dev DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   USE beereader_dev;
+
+   CREATE USER 'beereader'@'localhost' IDENTIFIED BY 'beereader';
+
+   GRANT ALL PRIVILEGES ON beereader_dev.* TO 'beereader'@'localhost';
+
+   FLUSH PRIVILEGES;
    ```
-2. Install dependencies:
-   npm i
-3. Start the server(make sure the database is on):
-   npm run dev (script for "nodemon app.js")
-4. Open your browser and navigate to: http://localhost:3000/home
 
-## Technical Highlights
+2. **Import the database schema**
+   Import the provided SQL file (beereader_dev.sql) into the newly created beereader_dev database.
+3. **Install dependencies**
+   Open your terminal, navigate to the project directory, and run: npm i
+4. **Set the database port for your environment**
 
-- UUID Middleware
-  Ensures unique IDs for all book entries.
-- EJS Rendering
-  Dynamically fetches and displays data.
-- Multer for File Uploads
-  Handles image uploads efficiently.
-- Soft Delete
-  Preserves data integrity by marking records as deleted instead of removing them.
+   - Locate the `dbconfig.js` file in the `config` folder.
+   - If you are using **MAMP on macOS (iOS)**, set the port to `8889`.
+   - If you are using **MAMP on Windows** , set the port to `3306`.
+
+5. **Run the Server**
+   npm run dev
+6. **Open**
+   Navigate to http://localhost:3000/ in your browser.
+
+## 3. Key Features
+
+## 4. Technologies Used
+
+- **Node.js** — JavaScript runtime environment for building the backend server.
+- **Express.js** — Web framework used both for building RESTful APIs and rendering server-side pages with EJS.
+- **MySQL** — Relational database system to store users, books, and related data, accessed via a connection pool.
+- **EJS (Embedded JavaScript templates)** — Server-side templating engine to dynamically render HTML views.
+- **express-session** — Middleware to manage user sessions and cookies for authentication.
+- **bcrypt** — Library to securely hash user passwords before storing them in the database, and to verify passwords at login.
+- **express-validator** — Middleware to validate and sanitize incoming form data on the server side, ensuring data integrity and security.
+- **dotenv** — Loads environment variables from a `.env` file to keep sensitive data like DB credentials and session secrets outside source code.
+- **Morgan** — HTTP request logger middleware for better server logging with custom formatting.
+- **UUID** — Generates universally unique identifiers (UUIDs) for new users, books, and reading list entries to ensure unique and consistent IDs.
+- **Multer** — Handles file uploads such as book cover images, storing them securely on the server (optional feature).
+- **Soft Delete Mechanism** — Instead of permanently deleting records, marks them as deleted with an `isDeleted` flag and timestamp for data integrity.
+
+## 5. Database Structure
+
+-please refer to DATABASE.md and SQL.md
+
+## 6. Project Structure
+
+- Please refer to STRUCTURE.md

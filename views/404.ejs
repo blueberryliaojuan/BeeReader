@@ -1,11 +1,83 @@
+<!--
+  @file 404.html
+  @description Custom 404 error page displayed when a user navigates to a non-existent route.
+  @author Juan Liao
+  @created 2025-07-31
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Set viewport for responsive design on mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #fff;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: #cc5803;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin: 0.5rem 0 2rem;
+      }
+
+      img {
+        width: 120px;
+        height: auto;
+        margin-bottom: 1rem;
+      }
+
+      a.button {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        background-color: #cc5803;
+        color: white;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      a.button:hover {
+        background-color: #a0201d;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        img {
+          width: 90px;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <h1>Welcome to the 404 Page</h1>
+    <h1>404 - Page Not Found</h1>
+    <img src="/images/logo.png" alt="BeeReader Logo" />
+    <p>
+      Sorry, we couldn’t find that page.<br />Please check the URL or return
+      home.
+    </p>
+    <a href="/" class="button">Back to Home</a>
   </body>
 </html>

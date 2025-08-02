@@ -4,7 +4,7 @@ const editBookRouter = express.Router();
 editBookRouter.get("/:id", (req, res) => {
   const bookId = req.params.id;
 
-  fetch(`http://localhost:3000/api/books/${bookId}`)
+  fetch(`http://localhost:3000/api/books/${bookId}`, { credentials: "include" })
     .then((res) => {
       return res.json(); // Parse the response into javaScript object format
     })

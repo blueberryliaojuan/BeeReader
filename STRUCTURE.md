@@ -1,4 +1,4 @@
-# Express Project Directory Overview
+# Directory Overview
 
 ## 1. `app/`
 
@@ -6,8 +6,8 @@ Core business logic folder, containing the following subdirectories:
 
 - `controllers/`: Handles the specific logic for processing requests.
 - `routes/`: Defines routes and their corresponding controllers.
+- `routes/index.js` :This will serve as the centralized router that combines and organizes all other routes.
 - `services/`: Implements the core business logic and reusable functionalities. It encapsulates complex operations and workflows, isolating them from controllers.
-- `index.js` :This will serve as the centralized router that combines and organizes all other routes.
 
 ## 2. `public/`
 

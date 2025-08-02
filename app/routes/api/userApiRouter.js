@@ -1,5 +1,5 @@
 const express = require("express");
-const userRouter = express.Router();
+const userApiRouter = express.Router();
 const userController = require("../../controllers/userController");
 
 const multer = require("multer");
@@ -7,17 +7,17 @@ const upload = multer(); // Use multer for handling multipart/form-data, but not
 //when not storing files, use .none() to avoid file handling
 
 // login
-userRouter.post(
+userApiRouter.post(
   "/signin",
   upload.none(),
   userController.verifyLoginCredentials
 );
 
 // register
-userRouter.post("/signup", upload.none(), userController.createUser);
-userRouter.post(
+userApiRouter.post("/signup", upload.none(), userController.createUser);
+userApiRouter.post(
   "/checkEmailAvailability",
   userController.checkEmailAvailability
 );
 
-module.exports = userRouter;
+module.exports = userApiRouter;

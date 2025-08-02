@@ -1,41 +1,63 @@
+<!--
+  @file addNewBook.html
+  @description BeeReader - Page for adding new books to the library.
+               Users can enter book details and upload a cover image.
+  @created 2025-07-31
+  @author Juan Liao
+  @lastModified 2025-07-31 by Juan Liao - Initial version with async JS submit
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Viewport for mobile responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Stylesheets for base layout and page-specific styling -->
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/addNewBook.css" />
+
+    <!-- Dynamic title using templating engine like EJS -->
     <title><%= title %></title>
   </head>
+
   <body>
+    <!-- Site Header with logo and branding -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
-      <img src="/images/logo.png" alt="" />
+      <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
+
     <main class="main-content">
       <h1>Add New Book</h1>
 
+      <!-- Book submission form. Uses multipart/form-data for file upload. -->
       <form
         id="book-form"
         action="/api/books"
         method="POST"
         enctype="multipart/form-data"
       >
+        <!-- Book title -->
         <div>
           <label for="title">Title:</label>
           <input type="text" name="title" id="title" required />
         </div>
 
+        <!-- Author name -->
         <div>
           <label for="author">Author:</label>
           <input type="text" name="author" id="author" required />
         </div>
 
+        <!-- Publication year -->
         <div>
           <label for="year">Year:</label>
           <input type="text" name="year" id="year" required />
         </div>
 
+        <!-- Book cover image upload -->
         <div>
           <label for="cover">Cover Image:</label>
           <input
@@ -47,39 +69,49 @@
           />
         </div>
 
+        <!-- Genre (optional) -->
         <div>
           <label for="genre">Genre:</label>
           <input type="text" name="genre" id="genre" />
         </div>
 
+        <!-- Submit button -->
         <button type="submit">Save</button>
       </form>
     </main>
 
     <script>
+      /**
+       * @description Intercepts the form submission and sends the form data
+       * asynchronously via `fetch` to avoid page reload and improve UX.
+       */
       document
         .getElementById("book-form")
         .addEventListener("submit", async function (event) {
-          event.preventDefault();
+          event.preventDefault(); // prevent default form submission behavior
+
           const form = event.target;
-          console.log("form", form);
-          const formData = new FormData(form);
+          const formData = new FormData(form); // collect form data including file
 
           try {
             const response = await fetch(form.action, {
               method: form.method,
               body: formData,
-              credentials: "include",
+              credentials: "include", // send cookies (if needed for session/auth)
             });
 
             const result = await response.json();
+
+            // Server-side success case
             if (result.state === "1") {
               alert("Book added successfully!");
-              window.location.href = "/library";
+              window.location.href = "/library"; // navigate back to library
             } else {
+              // Server-side validation or other failure
               alert(`Failed to add book: ${result.msg}`);
             }
           } catch (error) {
+            // Network or unexpected error
             console.error("Error adding book:", error);
             alert("An unexpected error occurred.");
           }
