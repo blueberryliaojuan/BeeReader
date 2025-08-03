@@ -8,7 +8,7 @@ document.querySelectorAll(".delete-btn").forEach((button) => {
     const confirmed = confirm("Are you sure you want to delete this book?");
     if (!confirmed) return;
 
-    fetch(`/api/books/${bookId}`, {
+    fetch(`${process.env.BASE_URL}/api/books/${bookId}`, {
       method: "DELETE",
       credentials: "include",
     })

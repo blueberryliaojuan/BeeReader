@@ -69,7 +69,7 @@ emailInput.addEventListener("blur", async (e) => {
 
 // AJAX check if email is available
 function checkEmailAvailability(email) {
-  return fetch("/api/users/checkEmailAvailability", {
+  return fetch(`${process.env.BASE_URL}/api/users/checkEmailAvailability`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -177,7 +177,7 @@ fistForm.addEventListener("submit", async (e) => {
   formData.append("password", password);
 
   try {
-    const res = await fetch("/api/users/signup", {
+    const res = await fetch(`${process.env.BASE_URL}/api/users/signup`, {
       method: "POST",
       body: formData,
     });
@@ -208,7 +208,7 @@ secondForm.addEventListener("submit", async (e) => {
   formData.append("password", password);
 
   try {
-    const res = await fetch("/api/users/signin", {
+    const res = await fetch(`${process.env.BASE_URL}/api/users/signin`, {
       method: "POST",
       body: formData,
       credentials: "include", // keep session cookie

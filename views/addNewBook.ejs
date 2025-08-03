@@ -34,12 +34,7 @@
         <h1>Add New Book</h1>
 
         <!-- Book submission form. Uses multipart/form-data for file upload. -->
-        <form
-          id="book-form"
-          action="/api/books"
-          method="POST"
-          enctype="multipart/form-data"
-        >
+        <form id="book-form" method="POST" enctype="multipart/form-data">
           <!-- Book title -->
           <div>
             <label for="title">Title:</label>
@@ -99,7 +94,7 @@
         button.disabled = true;
         button.textContent = "Saving...";
         try {
-          const response = await fetch(form.action, {
+          const response = await fetch(`${process.env.BASE_URL}/api/books`, {
             method: form.method,
             body: formData,
             credentials: "include", // send cookies (if needed for session/auth)

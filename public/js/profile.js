@@ -21,7 +21,7 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
   if (!confirmed) return;
 
   try {
-    const response = await fetch("/api/users/logout", {
+    const response = await fetch(`${process.env.BASE_URL}/api/users/logout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -35,7 +35,7 @@ libraryRouter.get("/", async (req, res) => {
   console.log("user in library page, req.session.user", user);
 
   try {
-    const bookRes = await axios.get("/api/books", {
+    const bookRes = await axios.get(`${process.env.BASE_URL}/api/books`, {
       headers: {
         cookie: req.headers.cookie,
       },

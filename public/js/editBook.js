@@ -42,7 +42,7 @@ form.addEventListener("submit", async function (e) {
   submitBtn.disabled = true; // Disable submit to prevent duplicate requests
 
   try {
-    const response = await fetch(`/api/books/${id}`, {
+    const response = await fetch(`${process.env.BASE_URL}/api/books/${id}`, {
       method: "PUT",
       body: formData,
       credentials: "include", // Ensure cookies (session) are sent
