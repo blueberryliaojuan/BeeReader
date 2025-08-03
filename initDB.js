@@ -29,7 +29,7 @@ async function resetAndSeed() {
       "drop tables"
     );
 
-    // 创建表
+    // 创建 users 表
     await executeQuery(
       `CREATE TABLE users (
         id VARCHAR(36) PRIMARY KEY,
@@ -45,6 +45,7 @@ async function resetAndSeed() {
       "create users table"
     );
 
+    // 创建 books 表
     await executeQuery(
       `CREATE TABLE books (
         id VARCHAR(36) PRIMARY KEY,
@@ -59,6 +60,7 @@ async function resetAndSeed() {
       "create books table"
     );
 
+    // 创建 user_books 表
     await executeQuery(
       `CREATE TABLE user_books (
         id VARCHAR(36) PRIMARY KEY,
@@ -72,7 +74,7 @@ async function resetAndSeed() {
       "create user_books table"
     );
 
-    // 插入初始数据
+    // 插入 users 数据
     await executeQuery(
       `INSERT INTO users (id, username, email, password, profile_picture, created_at, updated_at, phone, address) VALUES
         ('914de188-ac6d-4cb1-9069-db316a6b02be', 'beeReader', 'bee@beereader.com', '$2b$10$jnLj7RVRhoRncEXdCe2mzOYOYhyOQmi19hNY29AecvgcL3IUmKLea', '/images/userPic.png', '2025-07-27 19:44:38', '2025-08-03 03:51:15', '6047249888', '999 bee street, beehive, Vancouver'),
@@ -81,6 +83,7 @@ async function resetAndSeed() {
       "insert users data"
     );
 
+    // 插入 books 数据
     await executeQuery(
       `INSERT INTO books (id, title, author, genre, image_url, year, is_deleted, deleted_at) VALUES
         ('1393b346-e24e-434a-a23f-805258fbe374', 'To Kill a Mockingbird', 'Harper Lee', '', '/images/1753677499770-mockingbird.jpg', 1960, 0, NULL),
@@ -88,16 +91,16 @@ async function resetAndSeed() {
         ('7ef778c2-9e6a-416b-bb23-d7e0b0bb81d3', 'A Tree Grows in Brooklyn', 'Betty Smith', '', '/images/1753677154083-tree.jpg', 1943, 0, NULL),
         ('8981ef05-5c9a-43df-920f-ce246bc9234c', 'test', 'test', NULL, '/images/1753722182849-userPic.png', 1979, 1, '2025-07-28 10:03:10'),
         ('919eae03-ea3d-4f21-886d-b95c3e25f33c', 'Of Mice and Men', 'John Steinbeck', '', '/images/1753677173653-mice.jpg', 1937, 0, NULL),
-        ('9abd8891-292c-4ce8-a318-6ecf63fa1269', '1984', 'George Orwell', NULL, '/images/1753649034210-1984.jpg', 1949, 0, NULL);`
+        ('9abd8891-292c-4ce8-a318-6ecf63fa1269', '1984', 'George Orwell', NULL, '/images/1753649034210-1984.jpg', 1949, 0, NULL);`,
       "insert books data"
     );
 
+    // 插入 user_books 数据
     await executeQuery(
       `INSERT INTO user_books (id, user_id, book_id, added_at) VALUES
         ('69d601e7-ffee-4c70-aa6b-7f03bb42ed55', '914de188-ac6d-4cb1-9069-db316a6b02be', '9abd8891-292c-4ce8-a318-6ecf63fa1269', '2025-07-30 05:55:12'),
         ('be1e0ce3-b0f1-4183-b44a-7c0806206593', 'd1c97b88-d8f4-43f7-8fd8-c87156ec27f3', '919eae03-ea3d-4f21-886d-b95c3e25f33c', '2025-08-02 04:44:22'),
-        ('c4f543b4-3a4d-4b92-9e1b-9565069b401f', '914de188-ac6d-4cb1-9069-db316a6b02be', '2ff97b3c-7862-47d6-bf4d-1e98bbd2da48', '2025-07-30 04:46:04'),
-        
+        ('c4f543b4-3a4d-4b92-9e1b-9565069b401f', '914de188-ac6d-4cb1-9069-db316a6b02be', '2ff97b3c-7862-47d6-bf4d-1e98bbd2da48', '2025-07-30 04:46:04');`,
       "insert user_books data"
     );
 
