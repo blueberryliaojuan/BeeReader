@@ -101,6 +101,7 @@
             class="input"
             required
             id="password"
+            autocomplete="password"
           />
           <!-- Display password validation error -->
           <p id="password-error" class="error-message" style="height: 1em"></p>
@@ -113,6 +114,7 @@
             class="input"
             required
             id="conform-password"
+            autocomplete="confirm-password"
           />
           <!-- Display confirm password error -->
           <p
@@ -147,6 +149,6 @@
         "<%= process.env.NODE_ENV === 'production' ? 'https://beereader-node.onrender.com' : 'http://localhost:3000' %>";
     </script>
     <!-- ===== Page Script ===== -->
-    <script src="/js/auth.js"></script>
+    <script type="module" src="/js/auth.js"></script>
   </body>
 </html>
