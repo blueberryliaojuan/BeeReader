@@ -1,5 +1,5 @@
 // initDB.js
-const db = require("./dbConfig");
+const db = require("./config/dbConfig");
 
 function createTables() {
   const createUsersTable = `
