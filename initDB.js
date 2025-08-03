@@ -88,18 +88,16 @@ async function resetAndSeed() {
         ('7ef778c2-9e6a-416b-bb23-d7e0b0bb81d3', 'A Tree Grows in Brooklyn', 'Betty Smith', '', '/images/1753677154083-tree.jpg', 1943, 0, NULL),
         ('8981ef05-5c9a-43df-920f-ce246bc9234c', 'test', 'test', NULL, '/images/1753722182849-userPic.png', 1979, 1, '2025-07-28 10:03:10'),
         ('919eae03-ea3d-4f21-886d-b95c3e25f33c', 'Of Mice and Men', 'John Steinbeck', '', '/images/1753677173653-mice.jpg', 1937, 0, NULL),
-        ('9abd8891-292c-4ce8-a318-6ecf63fa1269', '1984', 'George Orwell', NULL, '/images/1753649034210-1984.jpg', 1949, 0, NULL);`,
+        ('9abd8891-292c-4ce8-a318-6ecf63fa1269', '1984', 'George Orwell', NULL, '/images/1753649034210-1984.jpg', 1949, 0, NULL);`
       "insert books data"
     );
 
     await executeQuery(
       `INSERT INTO user_books (id, user_id, book_id, added_at) VALUES
         ('69d601e7-ffee-4c70-aa6b-7f03bb42ed55', '914de188-ac6d-4cb1-9069-db316a6b02be', '9abd8891-292c-4ce8-a318-6ecf63fa1269', '2025-07-30 05:55:12'),
-        ('8e3bd83a-1b3f-4c63-8620-7f4ed36d3485', '914de188-ac6d-4cb1-9069-db316a6b02be', 'b7474faa-82e2-4200-b45e-bba6a189215c', '2025-07-30 06:18:43'),
-        ('a46f0a4b-6f52-4d1f-bc30-2d4cb7127bcf', '914de188-ac6d-4cb1-9069-db316a6b02be', 'c6f1a896-1562-4f6c-be83-e0693ab54ea5', '2025-08-02 02:10:45'),
         ('be1e0ce3-b0f1-4183-b44a-7c0806206593', 'd1c97b88-d8f4-43f7-8fd8-c87156ec27f3', '919eae03-ea3d-4f21-886d-b95c3e25f33c', '2025-08-02 04:44:22'),
-        ('c40228b5-67f6-45ab-925b-ed5fd428d410', 'd1c97b88-d8f4-43f7-8fd8-c87156ec27f3', 'a8d05a22-e3be-4ad7-b82b-19f4462657ff', '2025-08-02 04:44:25'),
-        ('c4f543b4-3a4d-4b92-9e1b-9565069b401f', '914de188-ac6d-4cb1-9069-db316a6b02be', '2ff97b3c-7862-47d6-bf4d-1e98bbd2da48', '2025-07-30 04:46:04');`,
+        ('c4f543b4-3a4d-4b92-9e1b-9565069b401f', '914de188-ac6d-4cb1-9069-db316a6b02be', '2ff97b3c-7862-47d6-bf4d-1e98bbd2da48', '2025-07-30 04:46:04'),
+        
       "insert user_books data"
     );
 

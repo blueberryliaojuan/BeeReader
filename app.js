@@ -11,6 +11,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+//only use this is to create table and init data at the first launch
 require("./initDB");
 /* ============================================================================
    View Engine Configuration (EJS)
