@@ -90,16 +90,41 @@
         <div class="content-case">
           <div class="avatar-section container">
             <img
-              src="<%= user && user.profile_picture ? user.profile_picture : '/user.pngPic' %>"
+              id="avatar-image"
+              src="<%= user && user.profile_picture ? user.profile_picture : '/images/userPic.png' %>"
               alt="User Avatar"
             />
             <div><button class="text-btn" id="logout-btn">Log Out</button></div>
           </div>
 
           <div class="form-section container">
-            <form id="profile-form">
+            <form
+              id="profile-form"
+              data-userid="<%= user.id %>"
+              enctype="multipart/form-data"
+            >
               <h2 class="form__title">Update Profile</h2>
+              <div class="form-item">
+                <label for="email">Email</label>
+                <input
+                  class="input"
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value="<%= user?.email ? user.email : '' %>"
+                  readonly
+                />
+                <p class="error-message"></p>
+              </div>
 
+              <!-- Hidden field to preserve original image if not replaced -->
+              <input
+                type="hidden"
+                name="existingImage"
+                id="existingImage"
+                value="<%= user.profile_picture %>"
+              />
               <div class="form-item">
                 <label for="name">User Name</label>
                 <input
@@ -111,6 +136,7 @@
                   placeholder="Your full name"
                   value="<%= user?.username ? user.username : '' %>"
                 />
+                <p id="username-error" class="error-message"></p>
               </div>
               <div class="form-item">
                 <label for="profile_picture">Change Avatar</label>
@@ -121,19 +147,9 @@
                   name="profile_picture"
                   accept="image/*"
                 />
+                <p id="profile_picture-error" class="error-message"></p>
               </div>
-              <div class="form-item">
-                <label for="email">Email</label>
-                <input
-                  class="input"
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  value="<%= user?.email ? user.email : '' %>"
-                />
-              </div>
+
               <div class="form-item">
                 <label for="phone">Phone</label>
                 <input
@@ -144,6 +160,7 @@
                   placeholder="(123) 456-7890"
                   value="<%= user ? user.phone : '' %>"
                 />
+                <p id="phone-error" class="error-message"></p>
               </div>
               <div class="form-item">
                 <label for="address">Address</label>
@@ -155,6 +172,7 @@
                 >
 <%= user ? user.address : '' %></textarea
                 >
+                <p id="address-error" class="error-message"></p>
               </div>
 
               <button class="text-btn" type="submit">Save Changes</button>
@@ -163,6 +181,10 @@
         </div>
       </div>
     </main>
-    <script src="/js/profile.js"></script>
+    <script>
+      // User ID for client-side logic
+      window.userId = "<%= user.userId %>";
+    </script>
+    <script type="module" src="/js/profile.js"></script>
   </body>
 </html>

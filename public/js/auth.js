@@ -34,6 +34,12 @@ const signInPassword = document.getElementById("signInPassword");
 const confirmPasswordInput = document.getElementById("conform-password");
 const confirmPasswordError = document.getElementById("conform-password-error");
 
+import {
+  validateUsernameFormat,
+  validatePassword,
+  validateEmailFormat,
+} from "./validations.js";
+
 // -------------------- UI Toggle: Switch Panels --------------------
 signInBtn.addEventListener("click", () => {
   container.classList.remove("right-panel-active");
@@ -60,12 +66,6 @@ emailInput.addEventListener("blur", async (e) => {
 });
 
 // Format validation
-function validateEmailFormat(email) {
-  if (!email) return "Email is required.";
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) return "Please enter a valid email address.";
-  return "";
-}
 
 // AJAX check if email is available
 function checkEmailAvailability(email) {
@@ -101,30 +101,13 @@ usernameInput.addEventListener("input", () => {
   const error = validateUsernameFormat(usernameInput.value.trim());
   if (!error) usernameError.textContent = "";
 });
-function validateUsernameFormat(username) {
-  if (!username) return "Username is required.";
-  if (username.length < 3 || username.length > 16)
-    return "Username must be 3–16 characters.";
-  if (!/^[a-zA-Z0-9_-]+$/.test(username))
-    return "Only letters, numbers, _ and - allowed.";
-  return "";
-}
 
 // -------------------- Password Validation --------------------
 passwordInput.addEventListener("blur", () => {
   const error = validatePassword(passwordInput.value.trim());
   passwordError.textContent = error || "";
 });
-function validatePassword(password) {
-  if (password.length < 8)
-    return "Password must be at least 8 characters long.";
-  if (!/[A-Z]/.test(password)) return "At least one uppercase letter required.";
-  if (!/[a-z]/.test(password)) return "At least one lowercase letter required.";
-  if (!/[0-9]/.test(password)) return "At least one number required.";
-  if (!/[!@#$%^&*()_\-+=<>?/[\]{}|\\]/.test(password))
-    return "Must include a special character.";
-  return "";
-}
+
 // -------------------- Validate Confirm Password --------------------
 function validateConfirmPassword(password, confirmPassword) {
   if (confirmPassword === "") return "Please confirm your password.";
@@ -204,7 +187,7 @@ fistForm.addEventListener("submit", async (e) => {
       container.classList.remove("right-panel-active");
       alert("Registration successful! You can now log in.");
     } else {
-      alert(`Failed to register: ${result.msg}`);
+      alert(`Failed to register: ${result.message}`);
     }
   } catch (err) {
     console.error("Sign-up error:", err);
@@ -236,7 +219,8 @@ secondForm.addEventListener("submit", async (e) => {
       localStorage.setItem("user_id", JSON.stringify(result.data.id));
       window.location.href = "/library";
     } else {
-      alert(`Failed to login: ${result.msg}`);
+      console.log("result ", result);
+      alert(`Failed to login: ${result.message}`);
     }
   } catch (err) {
     console.error("Error during sign-in:", err);

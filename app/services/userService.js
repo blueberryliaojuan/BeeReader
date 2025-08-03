@@ -69,7 +69,7 @@ const userService = {
   },
 
   updateProfile(id, data) {
-    const sql = `
+    const SQL = `
       UPDATE users
       SET username = ?, email = ?, phone = ?, address = ?, profile_picture = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
@@ -80,7 +80,17 @@ const userService = {
       dbPool.connection(SQL, parameters, (err, results) => {
         if (err) {
           return reject(err);
-        } else return resolve(results);
+        } else {
+          // After update, fetch the updated user info
+          const selectSQL =
+            "SELECT id, username, email, phone, address, profile_picture FROM users WHERE id = ?";
+          dbPool.connection(selectSQL, [id], (selectErr, userResults) => {
+            if (selectErr) {
+              return reject(selectErr);
+            }
+            resolve(userResults[0]); // return the updated user
+          });
+        }
       });
     });
   },

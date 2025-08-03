@@ -30,54 +30,56 @@
     </header>
 
     <main class="main-content">
-      <h1>Add New Book</h1>
+      <div class="form-case">
+        <h1>Add New Book</h1>
 
-      <!-- Book submission form. Uses multipart/form-data for file upload. -->
-      <form
-        id="book-form"
-        action="/api/books"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <!-- Book title -->
-        <div>
-          <label for="title">Title:</label>
-          <input type="text" name="title" id="title" required />
-        </div>
+        <!-- Book submission form. Uses multipart/form-data for file upload. -->
+        <form
+          id="book-form"
+          action="/api/books"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <!-- Book title -->
+          <div>
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" required />
+          </div>
 
-        <!-- Author name -->
-        <div>
-          <label for="author">Author:</label>
-          <input type="text" name="author" id="author" required />
-        </div>
+          <!-- Author name -->
+          <div>
+            <label for="author">Author:</label>
+            <input type="text" name="author" id="author" required />
+          </div>
 
-        <!-- Publication year -->
-        <div>
-          <label for="year">Year:</label>
-          <input type="number" name="year" id="year" required />
-        </div>
+          <!-- Publication year -->
+          <div>
+            <label for="year">Year:</label>
+            <input type="number" name="year" id="year" required />
+          </div>
 
-        <!-- Book cover image upload -->
-        <div>
-          <label for="cover">Cover Image:</label>
-          <input
-            type="file"
-            name="cover"
-            id="cover"
-            accept="image/*"
-            required
-          />
-        </div>
+          <!-- Book cover image upload -->
+          <div>
+            <label for="cover">Cover Image:</label>
+            <input
+              type="file"
+              name="cover"
+              id="cover"
+              accept="image/*"
+              required
+            />
+          </div>
 
-        <!-- Genre (optional) -->
-        <div>
-          <label for="genre">Genre:</label>
-          <input type="text" name="genre" id="genre" />
-        </div>
+          <!-- Genre (optional) -->
+          <div>
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" id="genre" />
+          </div>
 
-        <!-- Submit button -->
-        <button type="submit">Save</button>
-      </form>
+          <!-- Submit button -->
+          <button type="button" class="text-btn">Save</button>
+        </form>
+      </div>
     </main>
 
     <script>

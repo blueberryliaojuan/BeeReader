@@ -99,7 +99,7 @@ container.addEventListener("click", async (e) => {
       alert("Added to Reading List!");
       await fetchAndRenderReadingList(); // Re-render reading list
     } else {
-      alert(`Failed: ${result.msg}`);
+      alert(`Failed: ${result.message}`);
     }
   } catch (err) {
     console.error("Add to reading list error:", err);
@@ -185,7 +185,7 @@ readingListContainer.addEventListener("click", async (e) => {
       alert("Removed from Reading List!");
       await fetchAndRenderReadingList(); // Re-render after delete
     } else {
-      alert(`Failed to remove: ${result.msg}`);
+      alert(`Failed to remove: ${result.message}`);
     }
   } catch (err) {
     console.error("Delete book failed:", err);

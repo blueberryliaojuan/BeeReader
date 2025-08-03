@@ -16,8 +16,7 @@ const userApiRouter = express.Router();
 const userController = require("../../controllers/userController");
 const { body } = require("express-validator");
 
-const multer = require("multer");
-const upload = multer(); // Middleware to parse multipart/form-data without storing files
+const upload = require("../../../utils/storage.js");
 
 //import customized middleware
 const handleValidationErrors = require("../../../middlewares/validationHandler.js");
@@ -62,7 +61,7 @@ userApiRouter.post(
 //update profile
 userApiRouter.post(
   "/updateProfile/:id",
-  upload.single("picture"),
+  upload.single("profile_picture"),
   userController.updateProfile
 );
 

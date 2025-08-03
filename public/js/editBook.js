@@ -54,7 +54,7 @@ form.addEventListener("submit", async function (e) {
       alert("Book saved successfully!");
       window.location.href = "/library"; // Redirect after success
     } else {
-      alert("Save failed: " + result.msg);
+      alert("Save failed: " + result.message);
     }
   } catch (error) {
     console.error("Submit error:", error);

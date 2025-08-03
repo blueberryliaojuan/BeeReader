@@ -85,6 +85,8 @@ const userController = {
           username: results[0].username,
           email: results[0].email,
           profile_picture: results[0].profile_picture || "/images/userPic.png",
+          phone: results[0].phone,
+          address: results[0].address,
         };
         console.log("req.session.user", req.session.user);
         console.log("************SID:", req.sessionID);
@@ -150,12 +152,12 @@ const userController = {
     console.log("req.file", req.file);
     console.log("====================================");
     const id = req.params.id;
-    const image_url = req.file?.filename
+    const profile_picture = req.file
       ? `/images/${req.file.filename}`
-      : req.body.existingImage;
+      : req.body.existingImage || "/images/userPic.png";
     const data = {
       ...req.body,
-      image_url,
+      profile_picture,
     };
     console.log("data", data);
     try {
@@ -166,6 +168,16 @@ const userController = {
         });
       }
       const results = await userService.updateProfile(id, data);
+      console.log("results", results);
+      //user info is changed
+      req.session.user = {
+        id: results.id,
+        username: results.username,
+        email: results.email,
+        profile_picture: results.profile_picture || "/images/userPic.png",
+        phone: results.phone,
+        address: results.address,
+      };
       res.status(200).json({
         state: "1",
         message: "Update by id successful",

@@ -30,95 +30,96 @@
 
     <!-- ===== Main Content ===== -->
     <main class="main-content">
-      <h1>Edit Book</h1>
+      <div class="form-case">
+        <h1>Edit Book</h1>
 
-      <!-- 
+        <!-- 
         Edit form for book.
         Uses FormData and fetch() to send PUT request with possible image upload.
       -->
-      <form
-        id="book-form"
-        action="/api/books"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <!-- Book ID (hidden) -->
-        <input type="hidden" name="id" id="id" value="<%= data.id %>" />
+        <form
+          id="book-form"
+          action="/api/books"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <!-- Book ID (hidden) -->
+          <input type="hidden" name="id" id="id" value="<%= data.id %>" />
 
-        <!-- Book Title -->
-        <div>
-          <label for="title">Title:</label>
+          <!-- Book Title -->
+          <div>
+            <label for="title">Title:</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              value="<%= data.title %>"
+              required
+            />
+          </div>
+
+          <!-- Author -->
+          <div>
+            <label for="author">Author:</label>
+            <input
+              type="text"
+              name="author"
+              id="author"
+              value="<%= data.author %>"
+              required
+            />
+          </div>
+
+          <!-- Publication Year -->
+          <div>
+            <label for="year">Year:</label>
+            <input
+              type="number"
+              name="year"
+              id="year"
+              value="<%= data.year %>"
+              required
+              min="1000"
+              max="2100"
+            />
+          </div>
+          <!-- Optional Genre -->
+          <div>
+            <label for="genre">Genre:</label>
+            <input
+              type="text"
+              name="genre"
+              id="genre"
+              value="<%= data.genre || '' %>"
+            />
+          </div>
+
+          <!-- Optional new cover image -->
+          <div>
+            <label for="cover">Cover Image:</label>
+            <input type="file" name="cover" id="cover" accept="image/*" />
+            <% if (data.image_url) { %>
+            <p id="cover-path">Current cover: <%= data.image_url %></p>
+            <img
+              id="cover-preview"
+              src="<%= data.image_url %>"
+              alt="Current cover image"
+              style="max-width: 120px"
+            />
+            <% } %>
+          </div>
+
+          <!-- Hidden field to preserve original image if not replaced -->
           <input
-            type="text"
-            name="title"
-            id="title"
-            value="<%= data.title %>"
-            required
+            type="hidden"
+            name="existingCover"
+            value="<%= data.image_url %>"
           />
-        </div>
 
-        <!-- Author -->
-        <div>
-          <label for="author">Author:</label>
-          <input
-            type="text"
-            name="author"
-            id="author"
-            value="<%= data.author %>"
-            required
-          />
-        </div>
-
-        <!-- Publication Year -->
-        <div>
-          <label for="year">Year:</label>
-          <input
-            type="number"
-            name="year"
-            id="year"
-            value="<%= data.year %>"
-            required
-            min="1000"
-            max="2100"
-          />
-        </div>
-
-        <!-- Optional new cover image -->
-        <div>
-          <label for="cover">Cover Image:</label>
-          <input type="file" name="cover" id="cover" accept="image/*" />
-          <% if (data.image_url) { %>
-          <p>Current cover: <%= data.image_url %></p>
-          <img
-            id="cover-preview"
-            src="<%= data.image_url %>"
-            alt="Current cover image"
-            style="max-width: 120px"
-          />
-          <% } %>
-        </div>
-
-        <!-- Hidden field to preserve original image if not replaced -->
-        <input
-          type="hidden"
-          name="existingCover"
-          value="<%= data.image_url %>"
-        />
-
-        <!-- Optional Genre -->
-        <div>
-          <label for="genre">Genre:</label>
-          <input
-            type="text"
-            name="genre"
-            id="genre"
-            value="<%= data.genre || '' %>"
-          />
-        </div>
-
-        <!-- Save button -->
-        <button type="submit">Save</button>
-      </form>
+          <!-- Save button -->
+          <button type="button" class="text-btn">Save</button>
+        </form>
+      </div>
     </main>
 
     <!-- ===== Client-side Script ===== -->
