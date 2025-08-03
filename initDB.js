@@ -1,5 +1,5 @@
 // resetDB.js
-const db = require("./dbConfig");
+const db = require("./config/dbConfig");
 
 function resetTables() {
   const dropTables = `
