@@ -1,9 +1,26 @@
+<!--
+  File: profile.ejs
+  Description: Profile page for BeeReader users, allowing them to view and update personal information,
+               including name, phone number, address, and profile picture.
+  Author: Juan Liao
+  Created: 2025-07-15
+  Dependencies: 
+    - profile.js (handles client-side validation and form submission)
+    - /css/index.css, /css/profile.css (styling)
+    - Express EJS rendering (server-side template variables like <%= user %>)
+  Notes:
+    - This page uses server-rendered values to pre-fill user data.
+    - Form uses multipart/form-data to support image upload.
+    - Avatar and user data are updated via API (/api/users/updateProfile/:id).
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Fonts & Styles -->
+
+    <!-- ====== Fonts and Stylesheets ====== -->
     <link
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
@@ -14,20 +31,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+
     <title><%= title %></title>
   </head>
+
   <body>
-    <!-- ===== Site Header ===== -->
+    <!-- ====== Site Header (Logo + Name) ====== -->
     <header class="heading">
       <div class="site-name">BeeReader</div>
       <img src="/images/logo.png" alt="BeeReader Logo" />
     </header>
-    <!-- ===== Main Layout ===== -->
+
+    <!-- ====== Main Layout Container ====== -->
     <main>
-      <!-- ===== Sidebar Navigation ===== -->
+      <!-- ====== Sidebar Navigation ====== -->
       <nav class="sidebar">
         <div class="section">
-          <!-- Active: Library -->
+          <!-- Library Link -->
           <a href="/library" class="menu-item" title="Library">
             <svg
               class="icon"
@@ -46,7 +66,7 @@
             <span class="ml-2">Library</span>
           </a>
 
-          <!-- Reading List -->
+          <!-- Reading List Link -->
           <a href="/readingList" class="menu-item" title="Reading List">
             <svg
               class="icon"
@@ -65,7 +85,7 @@
             <span class="ml-2">Reading List</span>
           </a>
 
-          <!-- Profile  -->
+          <!-- Profile Link (Active Page) -->
           <a href="/profile" class="menu-item active" title="Profile">
             <svg
               class="icon"
@@ -85,18 +105,23 @@
           </a>
         </div>
       </nav>
-      <!-- ===== Main Content Area ===== -->
+
+      <!-- ====== Main Content Area ====== -->
       <div class="main-content">
         <div class="content-case">
+          <!-- ====== Avatar and Logout Section ====== -->
           <div class="avatar-section container">
             <img
               id="avatar-image"
               src="<%= user && user.profile_picture ? user.profile_picture : '/images/userPic.png' %>"
               alt="User Avatar"
             />
-            <div><button class="text-btn" id="logout-btn">Log Out</button></div>
+            <div>
+              <button class="text-btn" id="logout-btn">Log Out</button>
+            </div>
           </div>
 
+          <!-- ====== Profile Update Form ====== -->
           <div class="form-section container">
             <form
               id="profile-form"
@@ -104,6 +129,8 @@
               enctype="multipart/form-data"
             >
               <h2 class="form__title">Update Profile</h2>
+
+              <!-- Email (Read-only) -->
               <div class="form-item">
                 <label for="email">Email</label>
                 <input
@@ -118,13 +145,15 @@
                 <p class="error-message"></p>
               </div>
 
-              <!-- Hidden field to preserve original image if not replaced -->
+              <!-- Hidden field to preserve existing image -->
               <input
                 type="hidden"
                 name="existingImage"
                 id="existingImage"
                 value="<%= user.profile_picture %>"
               />
+
+              <!-- Username Input -->
               <div class="form-item">
                 <label for="name">User Name</label>
                 <input
@@ -138,6 +167,8 @@
                 />
                 <p id="username-error" class="error-message"></p>
               </div>
+
+              <!-- Profile Picture Upload -->
               <div class="form-item">
                 <label for="profile_picture">Change Avatar</label>
                 <input
@@ -150,6 +181,7 @@
                 <p id="profile_picture-error" class="error-message"></p>
               </div>
 
+              <!-- Phone Input -->
               <div class="form-item">
                 <label for="phone">Phone</label>
                 <input
@@ -162,6 +194,8 @@
                 />
                 <p id="phone-error" class="error-message"></p>
               </div>
+
+              <!-- Address Input -->
               <div class="form-item">
                 <label for="address">Address</label>
                 <textarea
@@ -175,16 +209,15 @@
                 <p id="address-error" class="error-message"></p>
               </div>
 
+              <!-- Submit Button -->
               <button class="text-btn" type="submit">Save Changes</button>
             </form>
           </div>
         </div>
       </div>
     </main>
-    <script>
-      // User ID for client-side logic
-      window.userId = "<%= user.userId %>";
-    </script>
+
+    <!-- ====== Profile Logic (Validation & Submission) ====== -->
     <script type="module" src="/js/profile.js"></script>
   </body>
 </html>

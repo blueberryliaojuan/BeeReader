@@ -51,6 +51,8 @@ body {
   /* background-color: var(--primary); */
   color: white;
   position: relative;
+  box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+    0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
 }
 .form-case::before {
   /* Semi-transparent background box */
@@ -115,10 +117,10 @@ h1 {
   padding: 0;
   margin-top: 0;
 }
+
 /* ========== Textarea Specific Styling ========== */
 #book-form textarea {
-  resize: vertical;
-  min-height: 80px;
+  align-self: center;
 }
 
 /* ========== Submit Button ========== */
