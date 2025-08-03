@@ -79,7 +79,7 @@ app.use(cookieParser()); // Parses cookies into req.cookies
 const logger = require("morgan");
 app.use(logger("dev")); // Logs HTTP requests to the console
 
-const createError = require("http-errors"); // Error generation utility
+// const createError = require("http-errors"); // Error generation utility
 
 /* ============================================================================
    Routing
