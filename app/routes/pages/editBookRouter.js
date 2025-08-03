@@ -19,7 +19,7 @@ const editBookRouter = express.Router();
 editBookRouter.get("/:id", (req, res) => {
   const bookId = req.params.id;
 
-  fetch(`http://localhost:3000/api/books/${bookId}`, { credentials: "include" })
+  fetch(`/api/books/${bookId}`, { credentials: "include" })
     .then((res) => res.json()) // Parse response as JSON
     .then((result) => {
       console.log("result", result);

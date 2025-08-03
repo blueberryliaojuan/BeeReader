@@ -3,13 +3,13 @@
  * @description Main Express server for BeeReader web application.
  *              Sets up view engine, middleware, session, routes, and launches the server.
  * @author Juan Liao
- * @created 2025-06-9
+ * @created 2025-06-09
  */
-
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 4000;
 
 /* ============================================================================
    View Engine Configuration (EJS)
@@ -33,9 +33,10 @@ app.get("/", (req, res) => {
    CORS (Cross-Origin Resource Sharing)
 ============================================================================ */
 const cors = require("cors");
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from frontend dev server
+    origin: allowedOrigin, // Allow requests from frontend dev server
     credentials: true, // Allow cookies/session to be sent cross-origin
   })
 );
@@ -112,6 +113,7 @@ function printBeeReader() {
 app.listen(PORT, () => {
   printBeeReader();
   console.log("====================================");
-  console.log(`🐝🐝🐝🐝🐝 Server is running on http://localhost:${PORT}`);
+  // console.log(`🐝🐝🐝🐝🐝 Server is running on http://localhost:${PORT}`);
+  console.log(`🐝🐝🐝🐝🐝 Server is running on port ${PORT}`);
   console.log("====================================");
 });

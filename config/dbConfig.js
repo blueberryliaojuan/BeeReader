@@ -5,6 +5,7 @@
  * @author Juan Liao
  * @created 2025-06-09
  */
+require("dotenv").config();
 
 const mysql = require("mysql2");
 
@@ -14,16 +15,23 @@ const mysql = require("mysql2");
  * - Efficient Reuse: Requests borrow a connection; if none available, they wait in queue.
  * - Automatic Release: Connections are returned to the pool after use, avoiding unnecessary reconnections.
  */
+
 const dbPool = {
   pool: {},
 
   // Configuration for the MySQL database
   config: {
-    host: "localhost",
-    user: "beereader",
-    password: "beereader",
-    database: "beereader_dev",
-    port: 8889, // ⚠️ MAMP default port; adjust if using different environment
+    // host: "localhost",
+    // user: "beereader",
+    // password: "beereader",
+    // database: "beereader_dev",
+    // port: 8889, // ⚠️ MAMP default port; adjust if using different environment
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0, // 0 means no limit for queued connections
@@ -59,17 +67,14 @@ const dbPool = {
   connection(sql, arr, fn) {
     this.pool.getConnection((err, connection) => {
       if (err) {
-        console.error("❌❌❌ Fail to connect to database:", err);
-      } else {
-        // Note: This log appears only on initial pool connection
-        console.log("✅✅✅ Database connection successful！");
+        console.error("❌ Fail to connect to database:", err);
+        return fn(err);
       }
-
-      // Ensure a valid query is provided
-      if (sql) connection.query(sql, arr, fn);
-
-      // Always release the connection back to the pool
-      connection.release();
+      console.log("✅✅✅ Database connection successful！");
+      connection.query(sql, arr, (queryErr, results) => {
+        connection.release();
+        fn(queryErr, results);
+      });
     });
   },
 };
