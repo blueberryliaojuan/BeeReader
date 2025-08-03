@@ -35,6 +35,7 @@ const dbPool = {
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0, // 0 means no limit for queued connections
+    multipleStatements: true,
   },
 
   /**
