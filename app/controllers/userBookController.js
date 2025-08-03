@@ -11,7 +11,7 @@
  * - Log relevant debugging and session info to trace requests and errors.
  *
  * Response structure:
- * - JSON responses contain 'state' (1 for success, 0 for failure), descriptive 'msg',
+ * - JSON responses contain 'state' (1 for success, 0 for failure), descriptive 'message',
  *   and 'data' where applicable, such as the reading list array or operation results.
  */
 
@@ -28,7 +28,7 @@ const userBookController = {
     if (!user) {
       return res.status(401).json({
         state: "0",
-        msg: "Unauthorized access",
+        message: "Unauthorized access",
       });
     }
 
@@ -36,7 +36,7 @@ const userBookController = {
       const results = await userBookService.getUserReadingList(user.id);
       res.status(200).json({
         state: "1",
-        msg: "Query successful",
+        message: "Query successful",
         data: results, // 'results' contains the query results as a JavaScript object/array
       });
     } catch (err) {
@@ -44,7 +44,7 @@ const userBookController = {
 
       res.status(500).json({
         state: "0",
-        msg: "Database query failed",
+        message: "Database query failed",
         error: err.message,
       });
     }
@@ -60,7 +60,7 @@ const userBookController = {
     if (!user_id || !book_id) {
       return res.status(400).json({
         state: "0",
-        msg: "Missing user_id or book_id",
+        message: "Missing user_id or book_id",
       });
     }
 
@@ -68,7 +68,7 @@ const userBookController = {
       const results = await userBookService.addToReadingList(user_id, book_id);
       res.status(201).json({
         state: "1",
-        msg: "addToReadingList successful",
+        message: "addToReadingList successful",
         data: results,
       });
     } catch (err) {
@@ -79,14 +79,14 @@ const userBookController = {
       ) {
         return res.status(400).json({
           state: "0",
-          msg: "This book is already in your reading list.",
+          message: "This book is already in your reading list.",
         });
       }
 
       // Other errors return 500
       res.status(500).json({
         state: "0",
-        msg: "Internal Server Error",
+        message: "Internal Server Error",
         error: err.message,
       });
     }
@@ -104,7 +104,7 @@ const userBookController = {
     if (!userId || !bookId) {
       return res.status(400).json({
         state: "0",
-        msg: "Missing user ID or book ID",
+        message: "Missing user ID or book ID",
       });
     }
 
@@ -117,19 +117,19 @@ const userBookController = {
       if (result.affectedRows === 0) {
         return res.status(404).json({
           state: "0",
-          msg: "Book not found in reading list",
+          message: "Book not found in reading list",
         });
       }
 
       res.status(200).json({
         state: "1",
-        msg: "Book removed from reading list",
+        message: "Book removed from reading list",
       });
     } catch (err) {
       console.error("removeFromReadingList failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Failed to remove book",
+        message: "Failed to remove book",
         error: err.message,
       });
     }

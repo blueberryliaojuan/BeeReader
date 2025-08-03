@@ -67,6 +67,23 @@ const userService = {
       });
     });
   },
+
+  updateProfile(id, data) {
+    const sql = `
+      UPDATE users
+      SET username = ?, email = ?, phone = ?, address = ?, profile_picture = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `;
+    const { username, email, phone, address, profile_picture } = data;
+    const parameters = [username, email, phone, address, profile_picture, id];
+    return new Promise((resolve, reject) => {
+      dbPool.connection(SQL, parameters, (err, results) => {
+        if (err) {
+          return reject(err);
+        } else return resolve(results);
+      });
+    });
+  },
 };
 
 module.exports = userService;

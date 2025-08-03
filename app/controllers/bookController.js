@@ -15,7 +15,7 @@
  *
  * Response Structure:
  * - JSON format with 'state' (1 for success, 0 for failure),
- *   descriptive 'msg', and 'data' containing query results or created records.
+ *   descriptive 'message', and 'data' containing query results or created records.
  */
 
 const bookService = require("../services/bookService");
@@ -40,7 +40,7 @@ const bookController = {
       // Respond with success status and newly created book data
       res.status(201).json({
         state: "1",
-        msg: "Create book successful",
+        message: "Create book successful",
         data: results,
       });
     } catch (err) {
@@ -48,7 +48,7 @@ const bookController = {
       console.error("Create book failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Create book failed",
+        message: "Create book failed",
         error: err.message,
       });
     }
@@ -71,7 +71,7 @@ const bookController = {
       // Send successful JSON response with list of books
       res.status(200).json({
         state: "1",
-        msg: "Query successful",
+        message: "Query successful",
         data: results, // 'results' contains the query results as a JavaScript object/array
       });
     } catch (err) {
@@ -81,7 +81,7 @@ const bookController = {
       // .json Convert JavaScript object to JSON and send it as the HTTP response
       res.status(500).json({
         state: "0",
-        msg: "Database query failed",
+        message: "Database query failed",
         error: err.message,
       });
     }
@@ -107,7 +107,7 @@ const bookController = {
       const results = await bookService.searchBook(search);
       res.status(200).json({
         state: "1",
-        msg: "Query successful",
+        message: "Query successful",
         data: results, // 'results' contains the query results as a JavaScript object/array
       });
     } catch (err) {
@@ -116,7 +116,7 @@ const bookController = {
       // .json Convert JavaScript object to JSON and send it as the HTTP response
       res.status(500).json({
         state: "0",
-        msg: "Database query failed",
+        message: "Database query failed",
         error: err.message,
       });
     }
@@ -144,14 +144,14 @@ const bookController = {
       const results = await bookService.getBookById(id);
       res.status(200).json({
         state: "1",
-        msg: "Query successful",
+        message: "Query successful",
         data: results,
       });
     } catch (err) {
       console.error("Query by id failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Query by id failed",
+        message: "Query by id failed",
         error: err.message,
       });
     }
@@ -177,20 +177,20 @@ const bookController = {
       if (!data.title || !data.author || !data.year) {
         return res.status(400).json({
           state: "0",
-          msg: "Invalid input: 'title', 'author', 'year' are required.",
+          message: "Invalid input: 'title', 'author', 'year' are required.",
         });
       }
       const results = await bookService.updateBook(id, data);
       res.status(200).json({
         state: "1",
-        msg: "Update by id successful",
+        message: "Update by id successful",
         data: results,
       });
     } catch (err) {
       console.error("Update by id failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Update by id failed",
+        message: "Update by id failed",
         error: err.message,
       });
     }
@@ -206,19 +206,19 @@ const bookController = {
       if (results.affectedRows === 0) {
         return res.status(404).json({
           state: "0",
-          msg: `No book found with id: ${id}`,
+          message: `No book found with id: ${id}`,
         });
       }
       res.status(200).json({
         state: "1",
-        msg: "Book soft deleted successfully.",
+        message: "Book soft deleted successfully.",
         data: results,
       });
     } catch (err) {
       console.error("Soft delete by id failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Database error: Soft delete by id failed.",
+        message: "Database error: Soft delete by id failed.",
         error: err.message,
       });
     }

@@ -12,7 +12,7 @@
  * - Return clear and consistent JSON responses for success and error cases.
  *
  * Response structure:
- * - JSON responses include 'state' (1 for success, 0 for failure), descriptive 'msg',
+ * - JSON responses include 'state' (1 for success, 0 for failure), descriptive 'message',
  *   and 'data' when applicable, such as user session info on login success.
  */
 
@@ -20,6 +20,7 @@ const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
 const userService = require("../services/userService.js");
+const { body, validationResult } = require("express-validator");
 
 const userController = {
   //postman:body-urlencoded
@@ -41,14 +42,14 @@ const userController = {
       );
       res.status(201).json({
         state: "1",
-        msg: "Create user successful",
+        message: "Create user successful",
         data: results,
       });
     } catch (err) {
       console.error("Create user failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Create user failed",
+        message: "Create user failed",
         error: err.message,
       });
     }
@@ -63,14 +64,6 @@ const userController = {
     console.log("====================================");
     try {
       let { email, password } = req.body;
-      // Validate input
-      if (!email || !password) {
-        console.warn("Invalid login attempt: Missing email or password");
-        return res.status(400).json({
-          state: "0", // Custom status code 0: failure
-          msg: "Email and password are required",
-        });
-      }
       //  Verify user credentials
       const results = await userService.verifyUser(email);
       // console.log("results", results);
@@ -99,21 +92,21 @@ const userController = {
 
         res.status(200).json({
           state: "1",
-          msg: "Login successful",
+          message: "Login successful",
           data: req.session.user,
         });
       } else {
         // User not found
         return res.status(401).json({
           state: "0",
-          msg: "Invalid credentials.",
+          message: "Invalid credentials.",
         });
       }
     } catch (err) {
       console.error("Login verification failed:", err);
       res.status(500).json({
         state: "0",
-        msg: "Login verification failed",
+        message: "Login verification failed",
         error: err.message,
       });
     }
@@ -130,12 +123,12 @@ const userController = {
         if (available) {
           res.status(200).json({
             state: "1",
-            msg: "email is available",
+            message: "email is available",
           });
         } else {
           res.status(409).json({
             state: "0",
-            msg: "email is already registered",
+            message: "email is already registered",
           });
         }
       });
@@ -143,7 +136,46 @@ const userController = {
       console.error("Error when checking username availability:", err);
       res.status(500).json({
         state: "0",
-        msg: "Error when checking username availability",
+        message: "Error when checking username availability",
+        error: err.message,
+      });
+    }
+  },
+
+  async updateProfile(req, res) {
+    console.log("====================================");
+    console.log("userController-updateProfile");
+    console.log("req.params", req.params);
+    console.log("req.body", req.body);
+    console.log("req.file", req.file);
+    console.log("====================================");
+    const id = req.params.id;
+    const image_url = req.file?.filename
+      ? `/images/${req.file.filename}`
+      : req.body.existingImage;
+    const data = {
+      ...req.body,
+      image_url,
+    };
+    console.log("data", data);
+    try {
+      if (!data.username || !data.email) {
+        return res.status(400).json({
+          state: "0",
+          message: "Invalid input: 'username', 'email' are required.",
+        });
+      }
+      const results = await userService.updateProfile(id, data);
+      res.status(200).json({
+        state: "1",
+        message: "Update by id successful",
+        data: results,
+      });
+    } catch (err) {
+      console.error("Update by id failed:", err);
+      res.status(500).json({
+        state: "0",
+        message: "Update by id failed",
         error: err.message,
       });
     }

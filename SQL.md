@@ -22,12 +22,14 @@ FLUSH PRIVILEGES;
 
 ```sql
 CREATE TABLE users (
-  id VARCHAR(36) PRIMARY KEY,                            -- unique identifier for each user (UUID)
-  username VARCHAR(50) NOT NULL,                         -- username, unique for each user
-  email VARCHAR(100) UNIQUE NOT NULL,                    -- user's email address
-  password VARCHAR(255) NOT NULL,                        -- hashed password
-  profile_picture VARCHAR(255),                          -- URL for the user's profile picture
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- date of account creation
+  id VARCHAR(36) PRIMARY KEY,                             -- Unique identifier for each user (UUID)
+  username VARCHAR(50) NOT NULL,                          -- Username, unique per user
+  email VARCHAR(100) UNIQUE NOT NULL,                     -- User's email address
+  password VARCHAR(255) NOT NULL,                         -- Hashed password
+  profile_picture VARCHAR(255),                           -- URL of the user's profile picture
+  phone VARCHAR(20),                                      -- User's phone number (optional)
+  address TEXT,                                           -- User's mailing or physical address
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,         -- date of account creation
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- last updated
 );
 ```

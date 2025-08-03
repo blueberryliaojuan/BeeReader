@@ -8,15 +8,17 @@ The BeeReader project uses a relational database built with **MySQL**. It includ
 
 This table stores information about registered users.
 
-| Column          | Type         | Description                         |
-| --------------- | ------------ | ----------------------------------- |
-| id              | VARCHAR(36)  | Primary key (UUID)                  |
-| username        | VARCHAR(50)  | User's display name                 |
-| email           | VARCHAR(100) | Unique email address                |
-| password        | VARCHAR(255) | Hashed password using bcrypt        |
-| profile_picture | VARCHAR(255) | Optional link to user profile image |
-| created_at      | TIMESTAMP    | Account creation time               |
-| updated_at      | TIMESTAMP    | Last update time                    |
+| Column          | Type         | Description                          |
+| --------------- | ------------ | ------------------------------------ |
+| id              | VARCHAR(36)  | Primary key (UUID)                   |
+| username        | VARCHAR(50)  | User's display name                  |
+| email           | VARCHAR(100) | Unique email address                 |
+| password        | VARCHAR(255) | Hashed password using bcrypt         |
+| profile_picture | VARCHAR(255) | Optional link to user profile image  |
+| phone           | VARCHAR(20)  | Optional phone number                |
+| address         | TEXT         | Optional mailing or physical address |
+| created_at      | TIMESTAMP    | Account creation time                |
+| updated_at      | TIMESTAMP    | Last update time                     |
 
 ---
 

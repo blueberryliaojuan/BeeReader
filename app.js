@@ -3,7 +3,7 @@
  * @description Main Express server for BeeReader web application.
  *              Sets up view engine, middleware, session, routes, and launches the server.
  * @author Juan Liao
- * @created 2025-07-31
+ * @created 2025-06-9
  */
 
 const express = require("express");
@@ -79,7 +79,7 @@ app.use(cookieParser()); // Parses cookies into req.cookies
 const logger = require("morgan");
 app.use(logger("dev")); // Logs HTTP requests to the console
 
-// const createError = require("http-errors"); // Error generation utility
+const createError = require("http-errors"); // Error generation utility
 
 /* ============================================================================
    Routing
