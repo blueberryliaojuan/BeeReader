@@ -76,7 +76,10 @@
         </form>
       </div>
     </main>
-
+    <script>
+      window.BASE_URL =
+        "<%= process.env.NODE_ENV === 'production' ? 'https://beereader-node.onrender.com' : 'http://localhost:3000' %>";
+    </script>
     <script>
       /**
        * @description Intercepts the form submission and sends the form data

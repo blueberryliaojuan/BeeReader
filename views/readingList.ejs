@@ -239,7 +239,10 @@
         </div>
       </div>
     </main>
-
+    <script>
+      window.BASE_URL =
+        "<%= process.env.NODE_ENV === 'production' ? 'https://beereader-node.onrender.com' : 'http://localhost:3000' %>";
+    </script>
     <!-- ================= Scripts ================= -->
     <script>
       // User ID for client-side logic

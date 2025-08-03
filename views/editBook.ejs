@@ -124,7 +124,10 @@
 
     <!-- ===== Client-side Script ===== -->
     <script>
-
+      window.BASE_URL =
+        "<%= process.env.NODE_ENV === 'production' ? 'https://beereader-node.onrender.com' : 'http://localhost:3000' %>";
+    </script>
+    <script>
        // Expose the id to global scope
       window.bookData = <%- JSON.stringify(data) %>; // Inject server-rendered data
     </script>

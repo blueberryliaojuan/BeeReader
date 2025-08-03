@@ -174,7 +174,10 @@
         </div>
       </div>
     </main>
-
+    <script>
+      window.BASE_URL =
+        "<%= process.env.NODE_ENV === 'production' ? 'https://beereader-node.onrender.com' : 'http://localhost:3000' %>";
+    </script>
     <!-- ===== Page Script ===== -->
     <script src="/js/library.js"></script>
   </body>

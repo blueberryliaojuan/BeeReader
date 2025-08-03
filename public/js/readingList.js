@@ -21,7 +21,7 @@ document
 
     try {
       const response = await fetch(
-        `${process.env.BASE_URL}/api/books?search=${encodeURIComponent(query)}`,
+        `${window.BASE_URL}/api/books?search=${encodeURIComponent(query)}`,
         { credentials: "include" }
       );
 
@@ -81,7 +81,7 @@ container.addEventListener("click", async (e) => {
   console.log("userId", userId);
 
   try {
-    const response = await fetch(`${process.env.BASE_URL}/api/userBooks`, {
+    const response = await fetch(`${window.BASE_URL}/api/userBooks`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -110,7 +110,7 @@ container.addEventListener("click", async (e) => {
 // -------------------- Fetch + Render Reading List --------------------
 async function fetchAndRenderReadingList() {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/userBooks`, {
+    const res = await fetch(`${window.BASE_URL}/api/userBooks`, {
       credentials: "include",
     });
     if (!res.ok) throw new Error("Failed to fetch reading list");
@@ -176,13 +176,10 @@ readingListContainer.addEventListener("click", async (e) => {
   const bookId = card.getAttribute("data-book-id");
 
   try {
-    const response = await fetch(
-      `${process.env.BASE_URL}/api/userBooks/${bookId}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      }
-    );
+    const response = await fetch(`${window.BASE_URL}/api/userBooks/${bookId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
 
     const result = await response.json();
 
