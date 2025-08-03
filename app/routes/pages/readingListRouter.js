@@ -34,7 +34,7 @@ readingListRouter.get("/", async (req, res) => {
 
     // Fetch all books and user's reading list concurrently
     const [bookRes, userBookRes] = await Promise.all([
-      axios.get(`${process.env.BASE_URL}/api/books`, {
+      axios.get(`/api/books`, {
         headers: { cookie },
       }),
       axios.get("/api/userBooks", {

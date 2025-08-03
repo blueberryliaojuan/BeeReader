@@ -97,7 +97,7 @@
         button.disabled = true;
         button.textContent = "Saving...";
         try {
-          const response = await fetch(`${process.env.BASE_URL}/api/books`, {
+          const response = await fetch(`${window.BASE_URL}/api/books`, {
             method: form.method,
             body: formData,
             credentials: "include", // send cookies (if needed for session/auth)
