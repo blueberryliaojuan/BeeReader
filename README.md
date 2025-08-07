@@ -51,7 +51,7 @@ The complete source code for **BeeReader** is available on GitHub:
 6. **Open**
    Navigate to http://localhost:3000/ in your browser.
 
-## 3. Key Features
+## 4. Key Features
 
 - 📚 **Book Management (CRUD)**  
   Full backend service for creating, reading, updating, and deleting books in the database.
@@ -70,7 +70,7 @@ The complete source code for **BeeReader** is available on GitHub:
 
 ---
 
-## 4. Technologies Used
+## 5. Technologies Used
 
 - **Node.js** — JavaScript runtime environment for building the backend server.
 - **Express.js** — Web framework used both for building RESTful APIs and rendering server-side pages with EJS.
@@ -85,10 +85,10 @@ The complete source code for **BeeReader** is available on GitHub:
 - **Multer** — Handles file uploads such as book cover images, storing them securely on the server (optional feature).
 - **Soft Delete Mechanism** — Instead of permanently deleting records, marks them as deleted with an `isDeleted` flag and timestamp for data integrity.
 
-## 5. Database Structure
+## 6. Database Structure
 
 - please refer to DATABASE.md and SQL.md
 
-## 6. File Structure
+## 7. File Structure
 
 - Please refer to DIRECTORY.md
