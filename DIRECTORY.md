@@ -1,26 +1,5 @@
 # Directory Overview
 
-BeeReader/
-├── app/
-│ ├── controllers/
-│ ├── routes/
-│ │ ├── api/
-│ │ ├── pages/
-│ │ └── index.js
-│ └── services/
-├── config/
-│ └── dbConfig.js
-├── middlewares/
-├── public/
-│ ├── css/
-│ ├── js/
-│ └── images/
-├── utils/
-├── views/
-├── app.js
-├── package.json
-└── README.md
-
 ## 1. `app/`
 
 Core business logic folder, containing the following subdirectories:
@@ -71,6 +50,11 @@ Custom middleware logic, such as authentication, checkSessionExpiry etc.
 
 General-purpose utility functions, such as date formatting, multer storage.
 
+```
+utils/
+└── storage.js
+```
+
 ## 8. `app.js`
 
 The entry point of the project, includes:
@@ -79,3 +63,11 @@ The entry point of the project, includes:
 - Middleware setup.
 - Route setup.
 - Server startup.
+
+## 9. `.env`
+
+Stores environment variables like port number and database URL. Keeps sensitive info out of the code.
+
+## 10.`initDB.js`
+
+Script to initialize the database and insert basic data. Useful for setting up or restoring the database.

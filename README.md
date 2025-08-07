@@ -53,6 +53,23 @@ The complete source code for **BeeReader** is available on GitHub:
 
 ## 3. Key Features
 
+- 📚 **Book Management (CRUD)**  
+  Full backend service for creating, reading, updating, and deleting books in the database.
+
+- 👤 **User Authentication**  
+  Secure registration, login, and logout functionalities with session management.
+
+- 📖 **Personalized Reading List**  
+  Logged-in users can add recommended books to their personal list and manage their own reading history.
+
+- 🌟 **Suggested Reads Feature**  
+  Curated list of recommended books that users can explore and save to their reading list.
+
+- 🛠️ **Database Initialization Script (`initDB.js`)**  
+  Script to initialize the database and insert basic seed data—helpful for quick setup and resetting the app.
+
+---
+
 ## 4. Technologies Used
 
 - **Node.js** — JavaScript runtime environment for building the backend server.
