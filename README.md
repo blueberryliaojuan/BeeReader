@@ -1,25 +1,25 @@
-# BeeReader 📚🐝
+## BeeReader 📚🐝
 
-## 1. Project Overview
+### 1. Project Overview
 
 **BeeReader** is a website designed for students to log and track the books they read. It allows each student to register, log in securely, and manage their own reading records. The app is built with **Node.js** and **Express**, uses **MySQL** as the database, and renders views with **EJS** (server-side rendering).
 
 ---
 
-## 2. Repository
+### 2. Repository
 
 The complete source code for **BeeReader** is available on GitHub:
 
 🔗 [https://github.com/blueberryliaojuan/BeeReader](https://github.com/blueberryliaojuan/BeeReader)
 
-## 3.Running the Application
+### 3.Running the Application
 
 ### Prerequisites
 
 - **Node.js** installed on your machine
 - **MySQL** server running locally or accessible remotely
 
-### Steps
+#### Steps
 
 1. **Create the database and user**
 
@@ -51,7 +51,7 @@ The complete source code for **BeeReader** is available on GitHub:
 6. **Open**
    Navigate to http://localhost:3000/ in your browser.
 
-## 4. Key Features
+### 4. Key Features
 
 - 📚 **Book Management (CRUD)**  
   Full backend service for creating, reading, updating, and deleting books in the database.
@@ -85,10 +85,10 @@ The complete source code for **BeeReader** is available on GitHub:
 - **Multer** — Handles file uploads such as book cover images, storing them securely on the server (optional feature).
 - **Soft Delete Mechanism** — Instead of permanently deleting records, marks them as deleted with an `isDeleted` flag and timestamp for data integrity.
 
-## 6. Database Structure
+### 6. Database Structure
 
 - please refer to DATABASE.md and SQL.md
 
-## 7. File Structure
+### 7. File Structure
 
 - Please refer to DIRECTORY.md
